@@ -475,6 +475,11 @@ nav.topnav {
   color: var(--cat-hpc);
 }
 
+.badge-inference {
+  background: rgba(45, 212, 191, 0.12);
+  color: #2dd4bf;
+}
+
 .badge-compiler {
   background: rgba(249, 115, 22, 0.12);
   color: var(--cat-compiler);

@@ -14,6 +14,16 @@
 
   {% seo %}
 
+  <script>
+    window.MathJax = {
+      tex2jax: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        processEscapes: true
+      }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
   <style>
     /* ===== CSS Variables (matching BrassinAI theme) ===== */
     :root {
@@ -94,6 +104,26 @@
       width: 100%;
       max-height: 100%;
       overflow-y: auto;
+    }
+
+    .slide.two-column-slide .slide-inner {
+      max-width: 1120px;
+      font-size: 0.88em;
+    }
+
+    .slide-columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 2.5em;
+      align-items: start;
+    }
+
+    .slide-column {
+      min-width: 0;
+    }
+
+    .slide-column + .slide-column {
+      padding-top: 2.5em;
     }
 
     /* Hide scrollbar but keep scrollable */
@@ -415,6 +445,20 @@
         padding: 40px 24px;
       }
 
+      .slide.two-column-slide .slide-inner {
+        max-width: 900px;
+        font-size: 0.95em;
+      }
+
+      .slide-columns {
+        grid-template-columns: 1fr;
+        gap: 1em;
+      }
+
+      .slide-column + .slide-column {
+        padding-top: 0;
+      }
+
       .slide h1 { font-size: 2em; }
       .slide h2 { font-size: 1.5em; }
       .slide.title-slide h1 { font-size: 2.2em; }
@@ -525,18 +569,51 @@
 
     // Split on <hr> / <hr /> tags
     const parts = raw.innerHTML.split(/<hr\s*\/?>/i);
+    const twoColumnSlideRe = /<!--\s*(?:(?:slide|layout)\s*:\s*)?(?:two-column|two columns|2-column|2 columns|columns?\s*:\s*2)\s*-->/i;
+    const columnBreakRe = /<!--\s*(?:column|col|column-break|column break)\s*-->/i;
+
+    function setSlideContent(inner, html, isTwoColumn) {
+      if (!isTwoColumn) {
+        inner.innerHTML = html;
+        return;
+      }
+
+      const columnParts = html.split(columnBreakRe).map(part => part.trim()).filter(Boolean);
+      if (columnParts.length < 2) {
+        inner.innerHTML = html;
+        return;
+      }
+
+      const columns = document.createElement('div');
+      columns.className = 'slide-columns';
+
+      const left = document.createElement('div');
+      left.className = 'slide-column';
+      left.innerHTML = columnParts[0];
+
+      const right = document.createElement('div');
+      right.className = 'slide-column';
+      right.innerHTML = columnParts.slice(1).join('');
+
+      columns.append(left, right);
+      inner.appendChild(columns);
+    }
 
     const slides = [];
     parts.forEach((html, i) => {
-      const trimmed = html.trim();
+      let trimmed = html.trim();
       if (!trimmed) return;
+
+      const isTwoColumn = twoColumnSlideRe.test(trimmed);
+      trimmed = trimmed.replace(twoColumnSlideRe, '').trim();
 
       const slide = document.createElement('div');
       slide.className = 'slide' + (i === 0 ? ' title-slide' : '');
+      if (isTwoColumn) slide.classList.add('two-column-slide');
 
       const inner = document.createElement('div');
       inner.className = 'slide-inner';
-      inner.innerHTML = trimmed;
+      setSlideContent(inner, trimmed, isTwoColumn);
 
       // If first slide (title slide), wrap metadata
       if (i === 0) {
@@ -668,6 +745,13 @@
       }
       showSlide(start);
     })();
+
+    // Typeset math after the raw Markdown content has been split into slides.
+    window.addEventListener('load', function() {
+      if (window.MathJax) {
+        MathJax.Hub.Queue(['Typeset', MathJax.Hub, deck]);
+      }
+    });
   </script>
 
 </body>
