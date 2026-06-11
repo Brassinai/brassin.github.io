@@ -13,24 +13,28 @@ excerpt: "A Brief introduction to Quantization and Attention workflow for Infere
 A Brief introduction to Quantization and Attention workflow for Inference
 
 ---
-<!-- use image representation -->
+![An overloaded truck representing limited transmission capacity](/assets/images/inference/overloaded-truck-bw.jpg)
+
+*Photo: [strudelt](https://commons.wikimedia.org/wiki/File:Truck_in_India_-_overloaded.jpg), licensed under [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/).*
+
 We have a data we want to transmit over a channel or we want to store it in a memory/storage, but we are limited interms of memory capactiy or transmission bandwidth , hence, we want to reduce the cost of storing or transmitting the data, but we want to do this without losing much information,
 
-What can we do? yes we Quantize it.
+What can we do?
 
 ---
 
-### What can we do?
+## What can we do?
 
-<!-- add list of option , like increase storage or network bandwidth -->
-Quantize it... we can find a way to represent the large values in a smaller format, or better still, finding a way to represent the  distribution in a lower bit format.
+1. Increase the capacity ; memory capacity or network bandwidth
+2. Chunk the data into different size for easy movement or sotring in multiple memory
+3. `Quantize it`; Compact the data by reducing the size and not leaving anything behind
 
-<!-- Add an image showing somthing larger being represented with something smaller -->
-<!-- Every information in a digital system is represented in bits, each data types has a specific number of bits allocated to it, for example, an integer might be represented using 32 bits, while a floating-point number might use 64 bits. -->
+In this session, we'll take a look at the `3` option
+
 
 ---
 
-### What can happen?
+## What can happen?
 
 1. Cost reduced
 2. Faster computation
@@ -42,7 +46,7 @@ However, we might lose some information in the process, and this can lead to a d
 
 <!-- two-column -->
 
-### What you can't measure , can't be controlled...
+## What you can't measure , can't be controlled...
 
 Shannon's Rate-Distortion theory provides a theoretical framework for understanding the trade-off between the amount of compression (or quantization) and the resulting distortion (or loss of information). It helps us to determine the optimal way to quantize data while minimizing the loss of information.
 
@@ -66,7 +70,7 @@ Where:
 
 ---
 <!-- two-column -->
-### Simplified
+## Simplified
 
 R(D) measures how do we represent lage Data X with a smaller representation $\hat{X}$ with respect to a quality criteria d(X, $\hat{X}$) inline with an acceptable distortion level D.
 
@@ -76,7 +80,7 @@ R(D) measures how do we represent lage Data X with a smaller representation $\ha
 
 ---
 
-# Distortion Function
+## Distortion Function
 
 <!-- two-column -->
 The distortion function $d(X,\hat{X})$ is a measure of the difference between the original data $X$ and its quantized reconstruction $\hat{X}$. It quantifies the loss of information due to quantization. Common distortion functions  and problem space include:
@@ -121,7 +125,7 @@ The higher the bit used for representation, the lower the distortion, and the cl
 ---
 
 <!-- two-column -->
-### Quantization Design Checklist: Basic Heuristics
+## Quantization Design Checklist: Basic Heuristics
 
 **1. Define the problem space**
 
@@ -148,7 +152,7 @@ The higher the bit used for representation, the lower the distortion, and the cl
 ---
 
 <!-- two-column -->
-### Quantization Design Checklist: Choose a Structure
+## Quantization Design Checklist: Choose a Structure
 
 **4. Choose the representation**
 
@@ -174,7 +178,7 @@ $$
 ---
 
 <!-- two-column -->
-### Quantization Design Checklist: Optimize and Control Rate
+## Quantization Design Checklist: Optimize and Control Rate
 
 **6. Choose an optimization method**
 
@@ -204,7 +208,7 @@ $$
 ---
 
 <!-- two-column -->
-### Quantization Design Checklist: Evaluate
+## Quantization Design Checklist: Evaluate
 
 **9. Measure the result**
 
@@ -229,7 +233,7 @@ The entire design problem can be summarized as:
 ---
 
 <!-- two-column -->
-### Simple Quantization: Asymmetric Min-Max Quantization
+## Simple Quantization: Asymmetric Min-Max Quantization
 
 Every data type are represented in bits, and each have a specific number of bits allocated to it.
 e.g
@@ -285,7 +289,7 @@ integers.
 ---
 
 <!-- two-column -->
-### Simple Quantization: Symmetric Linear Quantization
+## Simple Quantization: Symmetric Linear Quantization
 
 Symmetric quantization represents an equal float range on both sides of zero.
 It uses `-127` to `127`, leaving `-128` unused so that the range is symmetric.
