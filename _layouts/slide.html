@@ -251,22 +251,6 @@
       font-family: var(--font-ui);
     }
 
-    .document-source-link {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-      border: 1px solid var(--border-light);
-      padding: 6px 14px;
-      border-radius: 8px;
-      transition: all 0.15s;
-    }
-
-    .document-source-link:hover {
-      color: var(--ink);
-      border-color: var(--accent);
-      background: var(--accent-dim);
-    }
-
     /* ===== Code blocks ===== */
     .slide code {
       font-family: var(--font-mono);
@@ -643,12 +627,7 @@
       <button id="btn-fullscreen" onclick="toggleFullscreen()" title="Fullscreen">⛶</button>
     </div>
 
-    {% assign nav_document_file = page.pdf_file | default: page.presentation_file %}
-    {% if nav_document_file %}
-    <a href="{{ nav_document_file | relative_url }}" class="document-source-link">{{ page.document_label | default: 'PDF' }}</a>
-    {% else %}
     <span style="min-width:70px;"></span>
-    {% endif %}
   </nav>
 
   <script>
