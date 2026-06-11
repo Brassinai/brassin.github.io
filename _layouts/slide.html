@@ -197,6 +197,76 @@
       border-radius: 8px;
     }
 
+    .slide.document-slide {
+      padding: 48px 72px 76px;
+    }
+
+    .slide.document-slide .slide-inner {
+      max-width: min(1280px, 100%);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .document-frame {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: var(--document-aspect-ratio, 16 / 9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #050403;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      box-shadow: 0 18px 60px rgba(0,0,0,0.35);
+      overflow: hidden;
+    }
+
+    .document-frame canvas {
+      max-width: 100%;
+      max-height: 100%;
+      background: #050403;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    }
+
+    .document-loading {
+      color: var(--muted);
+      font-family: var(--font-ui);
+      font-size: 14px;
+    }
+
+    .document-frame.is-rendered .document-loading {
+      display: none;
+    }
+
+    .document-error {
+      max-width: 680px;
+      padding: 24px;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--ink-light);
+      font-family: var(--font-ui);
+    }
+
+    .document-source-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      border: 1px solid var(--border-light);
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: all 0.15s;
+    }
+
+    .document-source-link:hover {
+      color: var(--ink);
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+
     /* ===== Code blocks ===== */
     .slide code {
       font-family: var(--font-mono);
@@ -445,6 +515,10 @@
         padding: 40px 24px;
       }
 
+      .slide.document-slide {
+        padding: 44px 16px 72px;
+      }
+
       .slide.two-column-slide .slide-inner {
         max-width: 900px;
         font-size: 0.95em;
@@ -534,15 +608,28 @@
       <p><kbd>←</kbd> Previous slide</p>
       <p><kbd>Home</kbd> First slide</p>
       <p><kbd>End</kbd> Last slide</p>
+      <p><kbd>F</kbd> Fullscreen</p>
       <p><kbd>Esc</kbd> Back to blog</p>
     </div>
   </div>
 
-  <!-- Slide deck: content is split by <hr> tags -->
+  <!-- Slide deck: Markdown is split by <hr>; PDFs are rendered page-by-page. -->
   <div class="slide-deck" id="slide-deck">
+    {% assign slide_source = page.slide_source | default: 'markdown' %}
+    {% if slide_source == 'pdf' %}
+    {% assign document_file = page.pdf_file | default: page.presentation_file %}
+    <div
+      id="document-source"
+      data-document-url="{{ document_file | relative_url | escape }}"
+      data-document-label="{{ page.document_label | default: 'PDF' | escape }}"
+      data-alt="{{ page.title | escape }}"
+      style="display:none;"
+    ></div>
+    {% else %}
     <div class="slide-raw-content" id="raw-content" style="display:none;">
       {{ content }}
     </div>
+    {% endif %}
   </div>
 
   <!-- Navigation -->
@@ -553,24 +640,33 @@
       <button id="btn-prev" onclick="prevSlide()" title="Previous (←)">‹</button>
       <span class="slide-counter" id="counter">1 / 1</span>
       <button id="btn-next" onclick="nextSlide()" title="Next (→)">›</button>
+      <button id="btn-fullscreen" onclick="toggleFullscreen()" title="Fullscreen">⛶</button>
     </div>
 
+    {% assign nav_document_file = page.pdf_file | default: page.presentation_file %}
+    {% if nav_document_file %}
+    <a href="{{ nav_document_file | relative_url }}" class="document-source-link">{{ page.document_label | default: 'PDF' }}</a>
+    {% else %}
     <span style="min-width:70px;"></span>
+    {% endif %}
   </nav>
 
   <script>
-    // ===== Split content into slides by <hr> =====
-    const raw = document.getElementById('raw-content');
+    // ===== Build slides from Markdown or rendered PDF pages =====
+    const slideSource = '{{ slide_source }}';
     const deck = document.getElementById('slide-deck');
     const counter = document.getElementById('counter');
     const progress = document.getElementById('progress');
     const btnPrev = document.getElementById('btn-prev');
     const btnNext = document.getElementById('btn-next');
+    const btnFullscreen = document.getElementById('btn-fullscreen');
 
-    // Split on <hr> / <hr /> tags
-    const parts = raw.innerHTML.split(/<hr\s*\/?>/i);
     const twoColumnSlideRe = /<!--\s*(?:(?:slide|layout)\s*:\s*)?(?:two-column|two columns|2-column|2 columns|columns?\s*:\s*2)\s*-->/i;
     const columnBreakRe = /<!--\s*(?:column|col|column-break|column break)\s*-->/i;
+    const slides = [];
+    const renderedPdfPages = new Set();
+    let pdfDoc = null;
+    let current = 0;
 
     function setSlideContent(inner, html, isTwoColumn) {
       if (!isTwoColumn) {
@@ -599,24 +695,20 @@
       inner.appendChild(columns);
     }
 
-    const slides = [];
-    parts.forEach((html, i) => {
-      let trimmed = html.trim();
-      if (!trimmed) return;
-
-      const isTwoColumn = twoColumnSlideRe.test(trimmed);
-      trimmed = trimmed.replace(twoColumnSlideRe, '').trim();
-
+    function appendSlide(inner, options) {
+      const opts = options || {};
       const slide = document.createElement('div');
-      slide.className = 'slide' + (i === 0 ? ' title-slide' : '');
-      if (isTwoColumn) slide.classList.add('two-column-slide');
+      slide.className = 'slide';
+      if (slides.length === 0 && opts.titleSlide) slide.classList.add('title-slide');
+      if (opts.twoColumn) slide.classList.add('two-column-slide');
+      if (opts.document) slide.classList.add('document-slide');
+      slide.appendChild(inner);
+      deck.appendChild(slide);
+      slides.push(slide);
+      return slide;
+    }
 
-      const inner = document.createElement('div');
-      inner.className = 'slide-inner';
-      setSlideContent(inner, trimmed, isTwoColumn);
-
-      // If first slide (title slide), wrap metadata
-      if (i === 0) {
+    function appendTitleMetadata(inner) {
         const meta = document.createElement('div');
         meta.className = 'slide-meta';
         {% if page.date %}
@@ -630,17 +722,124 @@
         {% endif %}
         {% endif %}
         inner.appendChild(meta);
+    }
+
+    function buildMarkdownSlides() {
+      const raw = document.getElementById('raw-content');
+      if (!raw) return;
+
+      // Split on <hr> / <hr /> tags
+      const parts = raw.innerHTML.split(/<hr\s*\/?>/i);
+      parts.forEach((html) => {
+        let trimmed = html.trim();
+        if (!trimmed) return;
+
+        const isTwoColumn = twoColumnSlideRe.test(trimmed);
+        trimmed = trimmed.replace(twoColumnSlideRe, '').trim();
+
+        const inner = document.createElement('div');
+        inner.className = 'slide-inner';
+        setSlideContent(inner, trimmed, isTwoColumn);
+
+        if (slides.length === 0) appendTitleMetadata(inner);
+
+        appendSlide(inner, {
+          titleSlide: slides.length === 0,
+          twoColumn: isTwoColumn
+        });
+      });
+
+      raw.remove();
+    }
+
+    function showDocumentError(message) {
+      const inner = document.createElement('div');
+      inner.className = 'slide-inner';
+      inner.innerHTML = '<div class="document-error">' + message + '</div>';
+      appendSlide(inner, { titleSlide: true });
+    }
+
+    async function buildDocumentSlides() {
+      const source = document.getElementById('document-source');
+      if (!source) return;
+
+      const documentUrl = source.dataset.documentUrl || '';
+      const documentLabel = source.dataset.documentLabel || 'PDF';
+      const alt = source.dataset.alt || 'Presentation';
+
+      if (!documentUrl) {
+        showDocumentError('<strong>Presentation is not configured yet.</strong><br>Add <code>pdf_file</code> to this page front matter.');
+        source.remove();
+        return;
       }
 
-      slide.appendChild(inner);
-      deck.appendChild(slide);
-      slides.push(slide);
-    });
+      try {
+        const pdfjsLib = await import('https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.min.mjs');
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.min.mjs';
+        pdfDoc = await pdfjsLib.getDocument(documentUrl).promise;
 
-    // Remove the raw content
-    raw.remove();
+        for (let i = 1; i <= pdfDoc.numPages; i++) {
+          const inner = document.createElement('div');
+          inner.className = 'slide-inner';
+          inner.style.setProperty('--document-aspect-ratio', '{{ page.document_aspect_ratio | default: page.pdf_aspect_ratio | default: "16 / 9" }}');
 
-    let current = 0;
+          const frame = document.createElement('div');
+          frame.className = 'document-frame';
+          frame.dataset.pageNumber = String(i);
+
+          const loading = document.createElement('div');
+          loading.className = 'document-loading';
+          loading.textContent = 'Loading ' + documentLabel + ' slide ' + i + '...';
+
+          const canvas = document.createElement('canvas');
+          canvas.setAttribute('aria-label', alt + ' ' + documentLabel + ' slide ' + i);
+
+          frame.append(loading, canvas);
+          inner.appendChild(frame);
+          appendSlide(inner, { titleSlide: i === 1, document: true });
+        }
+      } catch (error) {
+        console.error(error);
+        showDocumentError('<strong>PDF presentation could not be loaded.</strong><br>Use the PDF link below to open the file directly.');
+      }
+
+      source.remove();
+    }
+
+    const deckReady = slideSource === 'pdf'
+      ? buildDocumentSlides()
+      : Promise.resolve(buildMarkdownSlides());
+
+    async function renderPdfPage(index) {
+      if (!pdfDoc || renderedPdfPages.has(index)) return;
+
+      const slide = slides[index];
+      const frame = slide && slide.querySelector('.document-frame');
+      const canvas = frame && frame.querySelector('canvas');
+      if (!frame || !canvas) return;
+
+      const pageNumber = Number(frame.dataset.pageNumber);
+      const page = await pdfDoc.getPage(pageNumber);
+      const baseViewport = page.getViewport({ scale: 1 });
+      const frameWidth = frame.clientWidth || 1280;
+      const frameHeight = frame.clientHeight || 720;
+      const scale = Math.min(frameWidth / baseViewport.width, frameHeight / baseViewport.height);
+      const outputScale = window.devicePixelRatio || 1;
+      const viewport = page.getViewport({ scale: scale * outputScale });
+
+      canvas.width = Math.floor(viewport.width);
+      canvas.height = Math.floor(viewport.height);
+      canvas.style.width = Math.floor(baseViewport.width * scale) + 'px';
+      canvas.style.height = Math.floor(baseViewport.height * scale) + 'px';
+
+      await page.render({
+        canvasContext: canvas.getContext('2d'),
+        viewport
+      }).promise;
+
+      frame.classList.add('is-rendered');
+      renderedPdfPages.add(index);
+    }
 
     function showSlide(n) {
       if (n < 0 || n >= slides.length) return;
@@ -667,12 +866,37 @@
       btnPrev.disabled = current === 0;
       btnNext.disabled = current === slides.length - 1;
 
+      renderPdfPage(current);
+      renderPdfPage(current + 1);
+
       // Update URL hash
       history.replaceState(null, '', '#' + (current + 1));
     }
 
     function nextSlide() { showSlide(current + 1); }
     function prevSlide() { showSlide(current - 1); }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+        btnFullscreen.textContent = '×';
+        btnFullscreen.title = 'Exit fullscreen';
+      } else {
+        document.exitFullscreen();
+        btnFullscreen.textContent = '⛶';
+        btnFullscreen.title = 'Fullscreen';
+      }
+    }
+
+    document.addEventListener('fullscreenchange', function() {
+      const active = !!document.fullscreenElement;
+      btnFullscreen.textContent = active ? '×' : '⛶';
+      btnFullscreen.title = active ? 'Exit fullscreen' : 'Fullscreen';
+      if (slideSource === 'pdf') {
+        renderedPdfPages.delete(current);
+        renderPdfPage(current);
+      }
+    });
 
     // ===== Keyboard navigation =====
     document.addEventListener('keydown', function(e) {
@@ -698,8 +922,17 @@
           e.preventDefault();
           showSlide(slides.length - 1);
           break;
+        case 'f':
+        case 'F':
+          e.preventDefault();
+          toggleFullscreen();
+          break;
         case 'Escape':
-          window.location.href = '{{ "/" | relative_url }}';
+          if (document.fullscreenElement) {
+            document.exitFullscreen();
+          } else {
+            window.location.href = '{{ "/" | relative_url }}';
+          }
           break;
       }
     });
@@ -734,7 +967,7 @@
     });
 
     // ===== Init: check hash or start at slide 1 =====
-    (function() {
+    function initSlides() {
       const hash = window.location.hash;
       let start = 0;
       if (hash) {
@@ -744,7 +977,9 @@
         }
       }
       showSlide(start);
-    })();
+    }
+
+    deckReady.then(initSlides);
 
     // Typeset math after the raw Markdown content has been split into slides.
     window.addEventListener('load', function() {
