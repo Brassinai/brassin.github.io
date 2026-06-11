@@ -79,6 +79,53 @@ Output goes to `_site/`.
 
 4. Push to `main` - GitHub Pages will build and deploy automatically.
 
+## 🖥 Presentations
+
+The site supports two slide sources:
+
+- Markdown slides: use `layout: slide` and separate slides with `---`.
+- PDF presentations: upload the `.pdf`, then use `layout: slide` with `slide_source: pdf`.
+
+### Markdown slide post
+
+```yaml
+---
+layout: slide
+title: "Your Slide Title"
+date: 2026-06-11
+category: hpc
+author: BrassinAI
+excerpt: "Short description for the insights page."
+---
+```
+
+Separate each slide with a horizontal rule:
+
+```markdown
+# Title Slide
+
+---
+
+## Second Slide
+```
+
+### PDF presentation post
+
+```yaml
+---
+layout: slide
+slide_source: pdf
+title: "Example Presentation"
+date: 2026-06-11
+category: general
+author: BrassinAI
+excerpt: "Short description for the insights page."
+pdf_file: /assets/presentations/example.pdf
+---
+```
+
+GitHub Pages serves the `.pdf` file and the slide page renders it page-by-page as a presentation. 
+
 ### Supported Categories
 
 | Category   | Topics                                        |
