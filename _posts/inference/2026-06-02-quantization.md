@@ -8,7 +8,7 @@ author:
 excerpt: "A Brief introduction to Quantization and Attention workflow for Inference"
 ---
 
-## Inference: Quantization and Attention workflow
+# Inference: Quantization and Attention workflow
 
 A Brief introduction to Quantization and Attention workflow for Inference
 
@@ -26,15 +26,15 @@ What can we do?
 ## What can we do?
 
 1. Increase the capacity ; memory capacity or network bandwidth
-2. Chunk the data into different size for easy movement or sotring in multiple memory
-3. `Quantize it`; Compact the data by reducing the size and not leaving anything behind
+2. Chunk the data into different size for easy movement or storing in multiple memory
+3. `Quantize it`; Compact/Compress the data by reducing the size and not leaving anything behind
 
-In this session, we'll take a look at the `3` option
+In this session, we'll take a look at the `3rd` option
 
 
 ---
 
-## What can happen?
+## What can happen if we quantize?
 
 1. Cost reduced
 2. Faster computation
