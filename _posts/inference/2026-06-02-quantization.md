@@ -147,7 +147,7 @@ The higher the bit used for representation, the lower the distortion, and the cl
 
 <!-- column -->
 
-![Problem type, distortion, and data distribution](/assets/images/inference/quantization-checklist-foundations.png)
+![Problem type, distortion, and data distribution](/assets/images/inference/quantization-checklist-foundations.svg)
 
 ---
 
@@ -173,7 +173,7 @@ $$
 
 <!-- column -->
 
-![Scalar, vector, and transform quantization](/assets/images/inference/quantization-checklist-structure.png)
+![Scalar, vector, and transform quantization](/assets/images/inference/quantization-checklist-structure.svg)
 
 ---
 
@@ -203,7 +203,7 @@ $$
 
 <!-- column -->
 
-![Iterative codebook optimization and rate control](/assets/images/inference/quantization-checklist-optimization.png)
+![Iterative codebook optimization and rate control](/assets/images/inference/quantization-checklist-optimization.svg)
 
 ---
 
@@ -228,7 +228,69 @@ The entire design problem can be summarized as:
 
 <!-- column -->
 
-![Rate-distortion evaluation and finite-space approximation](/assets/images/inference/quantization-checklist-evaluation.png)
+![Rate-distortion evaluation and finite-space approximation](/assets/images/inference/quantization-checklist-evaluation.svg)
+
+---
+
+<!-- two-column -->
+## Simple Quantization
+
+We want to convert `float32` LLM weights into smaller integer values like `int8` so the model uses less memory, while staying close enough to the original values.
+
+**Running example:** quantize a tensor of LLM weights from `float32` to `int8`.
+
+**1. Define the problem space**
+- Object: a tensor of weights
+- Goal: reduce memory
+- Constraint: keep the quantized weights close enough
+
+**2. Define the distortion function**
+- Use a simple numeric error
+- e.g. MSE between original and dequantized weights
+
+<!-- column -->
+
+**3. Characterize the distribution**
+- Look at `min` and `max`
+- Check whether weights are centered around zero
+- Check whether the range is symmetric
+
+**4. Choose the representation**
+- Use `int8`
+- Range: `[-128, 127]`
+- If the float range is not centered around zero, use asymmetric quantization
+
+---
+
+<!-- two-column -->
+## Simple Quantization
+
+**5. Check for a closed-form solution**
+- For min-max quantization, yes
+- Compute `scale` and `zero_point` directly from `min` and `max`
+
+**6. Choose an optimization method**
+- Use simple min-max calibration
+- No GPTQ or k-means here
+- Just map the observed float range into the integer range
+
+**7. Design the codebook**
+- The reconstruction levels come from:
+- `scale = (max - min) / (q_max - q_min)`
+- `zero_point = round(q_min - min / scale)`
+
+<!-- column -->
+
+**8. Control the rate**
+- Choose the bit-width
+- `int8` gives 256 levels
+- Fewer bits like `int4` save more memory, but increase error
+
+**9. Measure the result**
+- Quantize and dequantize
+- Measure memory saved
+- Measure reconstruction error
+- Check whether model quality drops too much
 
 ---
 
@@ -604,19 +666,48 @@ It focuses on three things:
 <!-- two-column -->
 ## KV Cache Quantization: SAW-INT4
 
-SAW-INT4 addresses the problem that KV cache memory becomes a major bottleneck in long-context and high-concurrency LLM serving.
+Think of the KV cache as a tensor:
 
-Each token and KV head can be quantized independently, allowing new entries to be written directly into a paged KV cache with their own scale and zero-point.
 
-However, naive INT4 loses accuracy because outlier channels stretch the quantization range, causing smaller values to lose precision.
+```text
+
+K_cache[119, 2, :] = [0.02, 0.04, 0.03, 4.80, ...]
+scale[119, 2]      = computed for this vector only
+zero_point[119, 2] = computed for this vector only
+INT4[119, 2, :]    = quantized along the D axis
+
+```
+
+However, naive INT4 loses accuracy when one channel has a large outlier:
+
+```text
+K = [0.02, 0.04, 0.03, 4.80]
+                         ↑
+                      outlier
+
+```
+
+The outlier stretches the quantization range, causing smaller values to lose precision.
 
 <!-- column -->
 
-To reduce this problem, our SAW-INT4 backend applies a normalized block-diagonal Hadamard rotation to keys before INT4 quantization. This spreads values within small blocks and preserves attention scores when the same rotation is applied to queries.
+To reduce this problem, SAW-INT4 applies a normalized block-diagonal Hadamard rotation to keys before INT4 quantization.
 
-Instead of using one large rotation, it rotates smaller blocks. The rotation can be fused into the KV-cache write kernel and packed decode-attention kernel.
+```text
 
-Keys and values are quantized independently using one affine INT4 scale and zero-point per token and KV head. Keys are rotated by default, while value rotation is optional and disabled by default.
+Original key
+K = [0.02, 0.04, 0.03, 4.80]
+
+After block rotation
+K_rot ≈ [1.22, -1.18, 1.20, -1.16]
+
+Then quantize
+INT4(K_rot) → 4-bit values + scale + zero-point
+
+```
+The rotation spreads the outlier across a small block, so INT4 no longer wastes its range on one large channel.
+
+
 
 ---
 
@@ -815,3 +906,13 @@ decode(q, cache):
 ```
 
 TurboQuant uses raw FlashInfer attention for the first prompt chunk, packed kernels for decode and small continuation prefills, and PyTorch dense scaled dot-product attention after dequantization for larger prefix-cache prefills or the optional dense decode fallback.
+
+---
+
+## Resources
+
+- SAW INT4 : https://arxiv.org/pdf/2604.19157
+- GPTQ: https://arxiv.org/pdf/2210.17323
+- awq: https://arxiv.org/pdf/2306.00978
+- FlashInfer: https://arxiv.org/pdf/2501.01005
+- Nano-vllm: https://github.com/Brassinai/nano-vllm

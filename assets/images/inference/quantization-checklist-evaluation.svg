@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1672" height="1040" viewBox="0 0 1672 1040" role="img" aria-labelledby="title desc">
+  <title id="title">Evaluation of a quantized LLM for inference</title>
+  <desc id="desc">A before and after dashboard comparing FP16 and quantized LLM inference on VRAM, speed, perplexity, and task quality.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#06182f"/>
+      <stop offset="56%" stop-color="#0a2344"/>
+      <stop offset="100%" stop-color="#051323"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="16%" cy="22%" r="70%">
+      <stop offset="0%" stop-color="#33c3d4" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#33c3d4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="82%" cy="18%" r="72%">
+      <stop offset="0%" stop-color="#f39a35" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#f39a35" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f2849" stop-opacity="0.98"/>
+      <stop offset="100%" stop-color="#0b1e39" stop-opacity="0.98"/>
+    </linearGradient>
+    <linearGradient id="card2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#163159" stop-opacity="0.86"/>
+      <stop offset="100%" stop-color="#102648" stop-opacity="0.92"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5ce1e6"/>
+      <stop offset="100%" stop-color="#31a7c8"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffbc68"/>
+      <stop offset="100%" stop-color="#f19130"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#02101f" flood-opacity="0.45"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7be7ee"/>
+    </marker>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#dcecff" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+    <style>
+      .h1 { font: 700 38px 'Avenir Next', 'Segoe UI', Arial, sans-serif; fill: #fbfdff; }
+      .h2 { font: 700 28px 'Avenir Next', 'Segoe UI', Arial, sans-serif; fill: #fbfdff; }
+      .label { font: 650 18px 'Avenir Next', 'Segoe UI', Arial, sans-serif; fill: #f4f9ff; }
+      .small { font: 550 15px 'Avenir Next', 'Segoe UI', Arial, sans-serif; fill: #d7e3f0; }
+      .tiny { font: 700 14px 'Avenir Next', 'Segoe UI', Arial, sans-serif; fill: #bfd0e5; letter-spacing: 1.6px; text-transform: uppercase; }
+      .num { font: 700 30px 'Avenir Next', 'Segoe UI', Arial, sans-serif; fill: #fff8eb; }
+      .good { fill: #92f1f2; }
+      .bad { fill: #ffd39b; }
+    </style>
+  </defs>
+
+  <rect width="1672" height="1040" fill="url(#bg)"/>
+  <rect width="1672" height="1040" fill="url(#glowA)"/>
+  <rect width="1672" height="1040" fill="url(#glowB)"/>
+  <rect width="1672" height="1040" fill="url(#grid)" opacity="0.35"/>
+
+  <text x="58" y="64" class="tiny">9. Measure the result</text>
+  <text x="58" y="108" class="h1">Did quantization buy enough memory for an acceptable drop?</text>
+  <text x="58" y="140" class="small">Compare the FP16 baseline with the quantized model on fit, speed, and task quality.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="42" y="164" rx="34" ry="34" width="1588" height="818" fill="url(#card)" stroke="#98d8ea" stroke-opacity="0.18"/>
+    <rect x="88" y="236" rx="28" ry="28" width="604" height="668" fill="url(#card2)" stroke="#7bdfe9" stroke-opacity="0.2"/>
+    <rect x="980" y="236" rx="28" ry="28" width="604" height="668" fill="url(#card2)" stroke="#7bdfe9" stroke-opacity="0.2"/>
+  </g>
+
+  <text x="120" y="280" class="tiny">Baseline</text>
+  <text x="120" y="316" class="h2">FP16 Model</text>
+  <text x="1012" y="280" class="tiny">Candidate</text>
+  <text x="1012" y="316" class="h2">INT4 / INT8 Quantized</text>
+
+  <g transform="translate(120 356)">
+    <rect x="0" y="0" width="514" height="94" rx="22" fill="#112949"/>
+    <text x="26" y="38" class="label">VRAM Used</text>
+    <text x="26" y="72" class="num">14.0 GB + cache</text>
+    <rect x="358" y="26" width="126" height="42" rx="20" fill="#402730" stroke="#ffb585" stroke-opacity="0.35"/>
+    <text x="393" y="54" class="label bad">No fit</text>
+
+    <rect x="0" y="118" width="514" height="94" rx="22" fill="#112949"/>
+    <text x="26" y="156" class="label">Throughput</text>
+    <text x="26" y="190" class="num">24 tok/s</text>
+    <rect x="306" y="152" width="178" height="18" rx="9" fill="#213a5f"/>
+    <rect x="306" y="152" width="124" height="18" rx="9" fill="#7bc2d7"/>
+
+    <rect x="0" y="236" width="514" height="94" rx="22" fill="#112949"/>
+    <text x="26" y="274" class="label">Perplexity</text>
+    <text x="26" y="308" class="num">6.1</text>
+    <text x="360" y="306" class="small">reference</text>
+
+    <rect x="0" y="354" width="514" height="94" rx="22" fill="#112949"/>
+    <text x="26" y="392" class="label">Task Score</text>
+    <text x="26" y="426" class="num">63.0 MMLU</text>
+    <text x="360" y="424" class="small">reference</text>
+  </g>
+
+  <g transform="translate(780 430)">
+    <circle cx="66" cy="104" r="72" fill="#102b4b" stroke="#8deaf0" stroke-opacity="0.22"/>
+    <path d="M 26 104 H 108" fill="none" stroke="url(#teal)" stroke-width="8" stroke-linecap="round" marker-end="url(#arrow)"/>
+    <text x="0" y="222" class="label">Acceptable drop?</text>
+    <rect x="-18" y="242" width="168" height="42" rx="21" fill="#243328" stroke="#9be4bf" stroke-opacity="0.22"/>
+    <text x="28" y="270" class="label good">If yes, ship it</text>
+  </g>
+
+  <g transform="translate(1012 356)">
+    <rect x="0" y="0" width="514" height="94" rx="22" fill="#112949"/>
+    <text x="26" y="38" class="label">VRAM Used</text>
+    <text x="26" y="72" class="num">4.2 GB + cache</text>
+    <rect x="358" y="26" width="126" height="42" rx="20" fill="#15364c" stroke="#7be7ee" stroke-opacity="0.35"/>
+    <text x="396" y="54" class="label good">Fits</text>
+
+    <rect x="0" y="118" width="514" height="94" rx="22" fill="#112949"/>
+    <text x="26" y="156" class="label">Throughput</text>
+    <text x="26" y="190" class="num">39 tok/s</text>
+    <rect x="306" y="152" width="178" height="18" rx="9" fill="#213a5f"/>
+    <rect x="306" y="152" width="160" height="18" rx="9" fill="url(#teal)"/>
+
+    <rect x="0" y="236" width="514" height="94" rx="22" fill="#112949"/>
+    <text x="26" y="274" class="label">Perplexity</text>
+    <text x="26" y="308" class="num">6.4</text>
+    <text x="360" y="306" class="small">small increase</text>
+
+    <rect x="0" y="354" width="514" height="94" rx="22" fill="#112949"/>
+    <text x="26" y="392" class="label">Task Score</text>
+    <text x="26" y="426" class="num">62.4 MMLU</text>
+    <text x="360" y="424" class="small">small drop</text>
+  </g>
+</svg>
