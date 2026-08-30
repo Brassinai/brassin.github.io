@@ -5,61 +5,118 @@ description: "BrassinAI blog covering agentic AI, RAG, multimodal AI, runtime sy
 permalink: /pages/blog/
 ---
 
-<div class="blog-intro">
-  <div class="blog-hero">
-    <h1>Research &bull; Blogposts</h1>
-    <p class="blog-desc">Blog posts and research notes exploring our fields of interest.</p>
-    <p class="blog-desc">
-      Agentic AI systems, runtime intelligence, multimodal models, RAG, and the
-      engineering patterns behind production AI products.
-    </p>
+<section class="insights-prototype" id="blog-feed" aria-labelledby="blog-board-title">
+  <div class="insights-prototype-head">
+    <h1 id="blog-board-title">Blogs</h1>
+    <p class="insights-prototype-note">Experimenting, researching, and building AI products require various areas of expertise, which we love to share through our blog.</p>
   </div>
 
-  <nav class="filters" id="filters" aria-label="Filter posts by category">
-    <button class="filter-btn" data-filter="agentic">Agentic AI</button>
-    <button class="filter-btn" data-filter="rag">RAG</button>
-    <button class="filter-btn" data-filter="multimodal">Multimodal AI</button>
-    <button class="filter-btn" data-filter="hpc">HPC</button>
-    <button class="filter-btn" data-filter="general">General</button>
-    <button class="filter-btn active" data-filter="all">All</button>
+  {% assign blog_posts = site.posts | where_exp: "post", "post.layout != 'slide'" | sort: "date" | reverse %}
+  {% assign blog_categories = blog_posts | map: "category" | uniq %}
+  {% assign use_grid_layout = false %}
+  {% if blog_posts.size < 6 %}
+    {% assign use_grid_layout = true %}
+  {% endif %}
+
+  <nav class="filters" id="blog-filters" aria-label="Filter posts by category">
+    {% for category in blog_categories %}
+    {% assign cat_key = category | downcase %}
+    <button type="button" class="filter-btn" data-filter="{{ cat_key }}">
+      {% case cat_key %}
+      {% when "rag" %}RAG
+      {% when "hpc" %}HPC
+      {% when "agentic" %}Agentic AI
+      {% when "multimodal" %}Multimodal AI
+      {% when "vlm" %}Vision-Language Models
+      {% when "runtime-systems" %}Runtime Systems
+      {% when "general" %}General
+      {% else %}{{ category | upcase }}
+      {% endcase %}
+    </button>
+    {% endfor %}
+    <button type="button" class="filter-btn active" data-filter="all">All</button>
   </nav>
 
-  <div class="post-grid" id="posts">
-    {% assign sorted = site.posts | sort: "date" | reverse %}
-    {% for post in sorted %}
-    {% unless post.layout == "slide" %}
-    <a href="{{ post.url | relative_url }}" class="card" data-cat="{{ post.category | downcase }}" style="text-decoration:none;color:inherit;">
-      <h2>{{ post.title }}</h2>
-      <p>{{ post.excerpt | strip_html | truncatewords: 28 }}</p>
-      <div class="meta">
-        <span class="badge badge-{{ post.category | downcase }}">{{ post.category | upcase }}</span>
-        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %d, %Y" }}</time>
-      </div>
-    </a>
-    {% endunless %}
+  <div class="insights-board{% if use_grid_layout %} insights-board--grid{% endif %}" aria-label="Blog post cards">
+    {% for post in blog_posts %}
+    {% assign pin_mod = forloop.index0 | modulo: 6 %}
+    {% assign pin_class = "insight-pin--short" %}
+    {% if pin_mod == 0 %}
+      {% assign pin_class = "insight-pin--medium" %}
+    {% elsif pin_mod == 1 %}
+      {% assign pin_class = "insight-pin--tall" %}
+    {% elsif pin_mod == 2 %}
+      {% assign pin_class = "insight-pin--short" %}
+    {% elsif pin_mod == 3 %}
+      {% assign pin_class = "insight-pin--medium" %}
+    {% elsif pin_mod == 4 %}
+      {% assign pin_class = "insight-pin--short" %}
+    {% elsif pin_mod == 5 %}
+      {% assign pin_class = "insight-pin--tall" %}
+    {% endif %}
+
+    {% assign preview_image = post.preview_image %}
+    {% if preview_image == nil or preview_image == "" %}
+      {% assign cat_key = post.category | downcase %}
+      {% case cat_key %}
+      {% when "agentic" %}
+        {% assign preview_image = "/images/articles/agent-systems-failure.svg" %}
+      {% when "runtime-systems" %}
+        {% assign preview_image = "/images/articles/platform-eval/observe.png" %}
+      {% when "vlm" %}
+        {% assign preview_image = "/images/articles/agentL2.png" %}
+      {% else %}
+        {% assign preview_image = "/images/articles/agentL2.png" %}
+      {% endcase %}
+    {% endif %}
+
+    <article class="insight-pin{% if use_grid_layout %} insight-pin--grid-item{% endif %} {{ pin_class }}" data-cat="{{ post.category | downcase }}">
+      <a href="{{ post.url | relative_url }}" class="insight-pin-card">
+        <div class="insight-pin-media">
+          <div class="insight-pin-media-wrap">
+            <img src="{{ preview_image | relative_url }}" alt="{{ post.title }} preview" class="insight-pin-img" loading="lazy" />
+          </div>
+        </div>
+        <div class="insight-pin-body">
+          <h2>{{ post.title }}</h2>
+          <p class="insight-pin-date">{{ post.date | date: "%b %d, %Y" }}</p>
+          <p class="insight-pin-desc">{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
+        </div>
+      </a>
+    </article>
     {% endfor %}
   </div>
 
   <p class="post-feed-empty" id="feed-empty" hidden>No posts in this category yet.</p>
-</div>
+</section>
 
 <script>
-  const filterBtns = document.querySelectorAll(".filter-btn");
-  const cards = document.querySelectorAll("#posts .card");
-  const empty = document.getElementById("feed-empty");
+  (() => {
+    const feed = document.getElementById("blog-feed");
+    if (!feed) return;
 
-  filterBtns.forEach(btn =>
-    btn.addEventListener("click", () => {
-      filterBtns.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      const cat = btn.dataset.filter;
-      let visible = 0;
-      cards.forEach(card => {
-        const show = cat === "all" || card.dataset.cat === cat;
-        card.style.display = show ? "" : "none";
-        if (show) visible++;
-      });
-      empty.hidden = visible > 0;
-    })
-  );
+    const filterBtns = feed.querySelectorAll(".filter-btn");
+    const cards = feed.querySelectorAll(".insights-board .insight-pin");
+    const empty = feed.querySelector(".post-feed-empty");
+
+    filterBtns.forEach(btn =>
+      btn.addEventListener("click", () => {
+        filterBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const cat = (btn.dataset.filter || "").toLowerCase();
+
+        let visible = 0;
+
+        cards.forEach(card => {
+          const show = cat === "all" || (card.dataset.cat || "").toLowerCase() === cat;
+          card.style.display = show ? "" : "none";
+          if (show) visible++;
+        });
+
+        if (empty) {
+          empty.hidden = visible > 0;
+        }
+      })
+    );
+  })();
 </script>

@@ -5,23 +5,19 @@ description: "BrassinAI products and shipped AI systems across DevOps, meeting i
 permalink: /pages/products/
 ---
 
-<div class="products-page">
-  <section class="products-hero">
-    <div class="products-hero-copy">
-      <div class="products-hero-badge">Products &amp; Projects</div>
-      <h1>Systems we&apos;ve shipped.</h1>
-      <p class="products-hero-sub">
-        Production AI products across DevOps, sales, and customer operations,
-        designed with clear workflows, durable interfaces, and room to scale.
-      </p>
-      <p class="products-hero-sub">
-        Hosted systems, research-backed builds, and product work shaped around
-        real operational workflows, measurable outcomes, and durable interfaces.
-      </p>
-    </div>
-  </section>
+<section class="products-page" aria-labelledby="products-board-title">
+  <div class="products-hero">
+    <h1 id="products-board-title">Products</h1>
+    <p>
+      Our work ranges from open-source projects to consumer- and
+      business-facing products. We always aim to either provide tools or
+      systems around AI products that make it effortless for AI engineers to
+      build AI products, or to build actual AI products that drive real
+      business value.
+    </p>
+  </div>
 
-  <div class="products-showcase">
+  <div class="products-showcase" aria-label="Products grid cards">
     {% for p in site.data.products %}
       {% assign product_link = p.link | default: "#" %}
       {% assign product_anchor = p.title | slugify %}
@@ -38,76 +34,80 @@ permalink: /pages/products/
       {% if product_image contains ".svg" %}
         {% assign image_is_vector = true %}
       {% endif %}
-      {% assign github_link = p.github | default: "" %}
-      <article class="pcard" id="{{ product_anchor }}">
-        <div class="pcard-media">
-          <div class="pcard-img-wrap">
-            <img
-              class="pcard-img{% if image_is_vector %} pcard-img--contain{% endif %}"
-              src="{% if image_is_external %}{{ product_image }}{% else %}{{ product_image | relative_url }}{% endif %}"
-              alt="{{ p.alt | default: p.title }}"
-              {% if forloop.first %}
-              loading="eager"
-              fetchpriority="high"
-              {% else %}
-              loading="lazy"
-              {% endif %}
-              decoding="async"
-            />
+      <article class="products-pin" id="{{ product_anchor }}">
+        {% if product_link != "#" %}
+          <a
+            href="{% if link_is_external %}{{ product_link }}{% else %}{{ product_link | relative_url }}{% endif %}"
+            class="products-project-card"
+            {% if link_is_external %}target="_blank" rel="noopener"{% endif %}
+            aria-label="Open {{ p.title }}"
+          >
+        {% else %}
+          <div class="products-project-card">
+        {% endif %}
+          <div class="products-project-media">
+            <div class="products-project-media-wrap">
+              <img
+                class="products-project-img{% if image_is_vector %} products-project-img--contain{% endif %}"
+                src="{% if image_is_external %}{{ product_image }}{% else %}{{ product_image | relative_url }}{% endif %}"
+                alt="{{ p.alt | default: p.title }}"
+                {% if forloop.index0 == 0 %}
+                loading="eager"
+                fetchpriority="high"
+                {% else %}
+                loading="lazy"
+                {% endif %}
+                decoding="async"
+              />
+            </div>
           </div>
-        </div>
 
-        <div class="pcard-body">
-          <div class="pcard-topline">
-            <div class="pcard-tag">{{ p.tag }}</div>
-          </div>
+          <div class="products-project-body">
+            <h2 class="products-project-title">{{ p.title }}</h2>
 
-          <h3 class="pcard-title">{{ p.title }}</h3>
-          <p class="pcard-desc">{{ p.desc }}</p>
-
-          {% if p.stack.size > 0 %}
-          <div class="pcard-stack" aria-label="Technology stack">
-            {% for tech in p.stack %}
-            <span class="pcard-pill">{{ tech }}</span>
-            {% endfor %}
-          </div>
-          {% endif %}
-
-          <div class="pcard-actions">
-            {% if product_link != "#" %}
-              <a
-                href="{% if link_is_external %}{{ product_link }}{% else %}{{ product_link | relative_url }}{% endif %}"
-                class="pcard-btn pcard-btn--primary"
-                {% if link_is_external %}target="_blank" rel="noopener"{% endif %}
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                View Project
-              </a>
-            {% else %}
-              <span class="pcard-btn pcard-btn--disabled">Coming Soon</span>
+            {% if p.status %}
+              <div class="products-project-status" aria-label="Project status">
+                <span class="products-project-status-dot" aria-hidden="true"></span>
+                <span>{{ p.status | upcase }}</span>
+              </div>
             {% endif %}
 
-            {% if github_link != "" %}
-              <a href="{{ github_link }}" target="_blank" rel="noopener" class="pcard-btn pcard-btn--ghost">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                GitHub
-              </a>
-            {% endif %}
+            <p class="products-project-desc">{{ p.desc }}</p>
           </div>
-        </div>
+        {% if product_link != "#" %}
+          </a>
+        {% else %}
+          </div>
+        {% endif %}
       </article>
     {% endfor %}
   </div>
 
-  <div class="products-cta">
-    <p class="products-cta-kicker">Need something like this?</p>
-    <h3>We scope, build, and ship AI systems with production polish.</h3>
-    <p>Let&apos;s turn the next idea into a product people can actually use.</p>
-    <a href="https://calendly.com/business-brassinai/30min" target="_blank" rel="noopener" class="pcard-btn pcard-btn--primary products-cta-btn">
-      Book a Call
-    </a>
+</section>
+
+<section class="final-cta products-final-cta" id="products-contact">
+  <div class="wrap">
+    <div>
+      <h2>Ready to ship AI<br />that actually works?</h2>
+      <p>
+        Let's redefine your system into what actually works and drives
+        value.
+      </p>
+      <div class="final-cta-actions">
+        <a
+          href="https://calendly.com/business-brassinai/30min"
+          target="_blank"
+          rel="noopener"
+          class="btn btn-gold">
+          Book a Meeting →
+        </a>
+        <a href="mailto:hello@brassinai.com" class="btn btn-ghost"
+          >hello@brassinai.com</a
+        >
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
 <script>
   (function() {
@@ -115,7 +115,7 @@ permalink: /pages/products/
     var selected = document.getElementById(window.location.hash.slice(1));
     if (!selected) return;
     window.setTimeout(function() {
-      selected.classList.add('pcard-selected');
+      selected.classList.add('products-pin-selected');
     }, 120);
   })();
 </script>

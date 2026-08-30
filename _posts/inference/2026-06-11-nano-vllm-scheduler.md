@@ -7,6 +7,7 @@ category: inference
 author: BrassinAI
 excerpt: "A presentation on nano-vLLM scheduler behavior and inference-serving mechanics."
 pdf_file: /assets/presentations/nano-vllm-scheduler.pdf
+preview_image: /assets/images/insights/nano-vllm-scheduler-cover-v3.png
 ---
 
 This presentation is rendered directly from the PDF file.

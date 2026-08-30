@@ -1,0 +1,109 @@
+<svg width="1600" height="1200" viewBox="0 0 1600 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1200" fill="#FFFFFF"/>
+  <rect width="1600" height="1200" fill="url(#pageGlow)"/>
+
+  <g opacity="0.8">
+    <ellipse cx="272" cy="180" rx="224" ry="124" fill="url(#topLeftMist)"/>
+    <ellipse cx="1328" cy="1020" rx="280" ry="144" fill="url(#bottomRightMist)"/>
+  </g>
+
+  <path d="M498 362C618 398 648 438 724 510" stroke="url(#wireA)" stroke-width="10" stroke-linecap="round"/>
+  <path d="M450 876C596 842 654 774 734 688" stroke="url(#wireB)" stroke-width="10" stroke-linecap="round"/>
+  <path d="M1078 384C988 418 944 464 876 518" stroke="url(#wireC)" stroke-width="10" stroke-linecap="round"/>
+
+  <g filter="url(#workspaceShadow)">
+    <rect x="188" y="232" width="344" height="216" rx="38" fill="#FFFFFF"/>
+    <rect x="188.75" y="232.75" width="342.5" height="214.5" rx="37.25" stroke="#E8E0D4"/>
+    <rect x="224" y="272" width="92" height="34" rx="17" fill="#F5EFE5"/>
+    <text x="270" y="294" text-anchor="middle" fill="#8E6C3B" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">WORKSPACE 01</text>
+    <text x="224" y="350" fill="#1E1A16" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700">GPU Workspace</text>
+    <text x="224" y="392" fill="#655B51" font-family="Inter, Arial, sans-serif" font-size="22">A100 cluster attached</text>
+    <rect x="224" y="410" width="112" height="34" rx="17" fill="#F6F8FA"/>
+    <text x="280" y="432" text-anchor="middle" fill="#59636E" font-family="JetBrains Mono, monospace" font-size="16">8x A100</text>
+  </g>
+
+  <g filter="url(#workspaceShadow)">
+    <rect x="172" y="732" width="374" height="224" rx="38" fill="#FFFFFF"/>
+    <rect x="172.75" y="732.75" width="372.5" height="222.5" rx="37.25" stroke="#E8E0D4"/>
+    <rect x="208" y="772" width="92" height="34" rx="17" fill="#F5EFE5"/>
+    <text x="254" y="794" text-anchor="middle" fill="#8E6C3B" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">WORKSPACE 02</text>
+    <text x="208" y="850" fill="#1E1A16" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700">GPU Workspace</text>
+    <text x="208" y="892" fill="#655B51" font-family="Inter, Arial, sans-serif" font-size="22">Shared H100 capacity</text>
+    <rect x="208" y="910" width="122" height="34" rx="17" fill="#F6F8FA"/>
+    <text x="269" y="932" text-anchor="middle" fill="#59636E" font-family="JetBrains Mono, monospace" font-size="16">4x H100</text>
+  </g>
+
+  <g filter="url(#workspaceShadow)">
+    <rect x="1068" y="254" width="352" height="216" rx="38" fill="#FFFFFF"/>
+    <rect x="1068.75" y="254.75" width="350.5" height="214.5" rx="37.25" stroke="#E8E0D4"/>
+    <rect x="1104" y="294" width="92" height="34" rx="17" fill="#F5EFE5"/>
+    <text x="1150" y="316" text-anchor="middle" fill="#8E6C3B" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">WORKSPACE 03</text>
+    <text x="1104" y="372" fill="#1E1A16" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700">GPU Workspace</text>
+    <text x="1104" y="414" fill="#655B51" font-family="Inter, Arial, sans-serif" font-size="22">L40S fleet available</text>
+    <rect x="1104" y="432" width="124" height="34" rx="17" fill="#F6F8FA"/>
+    <text x="1166" y="454" text-anchor="middle" fill="#59636E" font-family="JetBrains Mono, monospace" font-size="16">16x L40S</text>
+  </g>
+
+  <g filter="url(#hubShadow)">
+    <rect x="690" y="410" width="308" height="390" rx="48" fill="url(#hubSurface)"/>
+    <rect x="690.75" y="410.75" width="306.5" height="388.5" rx="47.25" stroke="#D7B16A" stroke-opacity="0.45"/>
+    <rect x="742" y="466" width="204" height="98" rx="26" fill="#FFF9EF"/>
+    <circle cx="782" cy="515" r="17" fill="#E7BE6B"/>
+    <path d="M782 505V525" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+    <path d="M772 515H792" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+    <text x="856" y="508" text-anchor="middle" fill="#1F1A14" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700">InferCloud</text>
+    <text x="856" y="540" text-anchor="middle" fill="#7A6E61" font-family="Inter, Arial, sans-serif" font-size="16">connected GPU router</text>
+    <text x="742" y="634" fill="#8F8375" font-family="Inter, Arial, sans-serif" font-size="20">Route multiple GPU workspaces once,</text>
+    <text x="742" y="666" fill="#8F8375" font-family="Inter, Arial, sans-serif" font-size="20">then share one clean access layer.</text>
+    <rect x="742" y="708" width="204" height="44" rx="22" fill="#1E1A16"/>
+    <text x="844" y="736" text-anchor="middle" fill="#F7EFE2" font-family="JetBrains Mono, monospace" font-size="19">/models   /usage</text>
+  </g>
+
+  <g>
+    <circle cx="724" cy="510" r="12" fill="#D8A74B"/>
+    <circle cx="734" cy="688" r="12" fill="#D8A74B"/>
+    <circle cx="876" cy="518" r="12" fill="#D8A74B"/>
+    <circle cx="498" cy="362" r="8" fill="#E8DED0"/>
+    <circle cx="450" cy="876" r="8" fill="#E8DED0"/>
+    <circle cx="1078" cy="384" r="8" fill="#E8DED0"/>
+  </g>
+
+  <defs>
+    <filter id="workspaceShadow" x="120" y="196" width="1360" height="820" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="22" stdDeviation="24" flood-color="#4A3821" flood-opacity="0.16"/>
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#0F172A" flood-opacity="0.06"/>
+    </filter>
+    <filter id="hubShadow" x="634" y="372" width="420" height="486" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="28" stdDeviation="28" flood-color="#5B4526" flood-opacity="0.2"/>
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#0F172A" flood-opacity="0.08"/>
+    </filter>
+    <radialGradient id="pageGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(820 560) rotate(90) scale(760 1080)">
+      <stop offset="0.18" stop-color="#FFFDF9"/>
+      <stop offset="1" stop-color="#F7F3EC"/>
+    </radialGradient>
+    <radialGradient id="topLeftMist" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(272 180) rotate(90) scale(124 224)">
+      <stop stop-color="#F6E8CD"/>
+      <stop offset="1" stop-color="#F6E8CD" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bottomRightMist" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1328 1020) rotate(90) scale(144 280)">
+      <stop stop-color="#EFE8DB"/>
+      <stop offset="1" stop-color="#EFE8DB" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="hubSurface" x1="844" y1="410" x2="844" y2="800" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#241C13"/>
+      <stop offset="1" stop-color="#19130D"/>
+    </linearGradient>
+    <linearGradient id="wireA" x1="498" y1="362" x2="724" y2="510" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D9CEC0"/>
+      <stop offset="1" stop-color="#D8A74B"/>
+    </linearGradient>
+    <linearGradient id="wireB" x1="450" y1="876" x2="734" y2="688" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D9CEC0"/>
+      <stop offset="1" stop-color="#D8A74B"/>
+    </linearGradient>
+    <linearGradient id="wireC" x1="1078" y1="384" x2="876" y2="518" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D9CEC0"/>
+      <stop offset="1" stop-color="#D8A74B"/>
+    </linearGradient>
+  </defs>
+</svg>

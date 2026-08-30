@@ -1,0 +1,123 @@
+<svg width="1600" height="1200" viewBox="0 0 1600 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1200" fill="#050403"/>
+  <rect width="1600" height="1200" fill="url(#backdrop)"/>
+  <g transform="translate(0 150)">
+  <path d="M-26 701C224 617 364 624 548 691C748 764 905 757 1095 652C1284 548 1452 520 1642 588" stroke="#22180D" stroke-width="46" stroke-linecap="round"/>
+  <path d="M-26 701C224 617 364 624 548 691C748 764 905 757 1095 652C1284 548 1452 520 1642 588" stroke="url(#beltEdge)" stroke-width="30" stroke-linecap="round"/>
+  <path d="M-26 701C224 617 364 624 548 691C748 764 905 757 1095 652C1284 548 1452 520 1642 588" stroke="#0C0A08" stroke-width="18" stroke-linecap="round"/>
+  <path d="M-12 690C224 610 366 620 546 684C746 755 900 750 1088 646C1278 541 1448 515 1626 578" stroke="url(#beltGlow)" stroke-width="5" stroke-linecap="round"/>
+
+  <g opacity="0.76">
+    <path d="M259 252H1340" stroke="#2B2115" stroke-width="2"/>
+    <path d="M259 352H1340" stroke="#1D1710" stroke-width="2"/>
+    <path d="M259 452H1340" stroke="#1D1710" stroke-width="2"/>
+    <path d="M259 552H1340" stroke="#1D1710" stroke-width="2"/>
+    <path d="M392 178V744" stroke="#1B150F" stroke-width="2"/>
+    <path d="M629 178V744" stroke="#1B150F" stroke-width="2"/>
+    <path d="M866 178V744" stroke="#1B150F" stroke-width="2"/>
+    <path d="M1103 178V744" stroke="#1B150F" stroke-width="2"/>
+  </g>
+
+  <g filter="url(#panelShadow)">
+    <rect x="247" y="156" width="1106" height="564" rx="42" fill="#0D0A07"/>
+    <rect x="248" y="157" width="1104" height="562" rx="41" stroke="#2E2112" stroke-width="2"/>
+    <rect x="291" y="203" width="1018" height="470" rx="30" fill="url(#panel)"/>
+    <rect x="291.75" y="203.75" width="1016.5" height="468.5" rx="29.25" stroke="#3B2A16" stroke-width="1.5"/>
+
+    <g filter="url(#beltShadow)">
+      <path d="M402 475C483 395 572 365 680 396C781 425 841 501 953 486C1057 472 1119 408 1198 316" stroke="#14100D" stroke-width="104" stroke-linecap="round"/>
+      <path d="M402 475C483 395 572 365 680 396C781 425 841 501 953 486C1057 472 1119 408 1198 316" stroke="#3B2915" stroke-width="78" stroke-linecap="round"/>
+      <path d="M402 475C483 395 572 365 680 396C781 425 841 501 953 486C1057 472 1119 408 1198 316" stroke="url(#beltTop)" stroke-width="54" stroke-linecap="round"/>
+      <path d="M416 462C494 394 579 373 676 404C777 437 839 509 954 494C1062 480 1126 414 1190 331" stroke="#0D0A08" stroke-width="26" stroke-linecap="round"/>
+      <path d="M418 455C496 389 582 367 680 399C781 432 840 501 951 487C1054 473 1116 409 1184 325" stroke="url(#thread)" stroke-width="5" stroke-linecap="round"/>
+    </g>
+
+    <g transform="translate(415 448)" filter="url(#gearShadow)">
+      <path d="M0 -162L23 -125C35 -122 46 -117 57 -111L100 -122L122 -83L95 -48C99 -36 102 -24 103 -11L138 16L124 59L80 62C73 72 65 82 55 90L48 134H2L-16 94C-28 91 -40 86 -51 79L-93 91L-116 51L-89 17C-93 5 -95 -8 -96 -21L-131 -48L-117 -91L-73 -94C-66 -105 -57 -114 -47 -122L-40 -166L0 -162Z" fill="url(#gearMetal)"/>
+      <circle r="104" fill="#23180D"/>
+      <circle r="76" fill="url(#gearFace)"/>
+      <circle r="34" fill="#070504" stroke="#E0AF53" stroke-width="10"/>
+      <circle r="16" fill="#E6BB61"/>
+    </g>
+
+    <g transform="translate(795 446)" filter="url(#gearShadow)">
+      <path d="M0 -198L30 -153C45 -149 59 -143 72 -136L124 -151L151 -101L118 -59C124 -44 128 -29 129 -13L173 20L156 73L101 77C92 90 82 102 69 112L60 166H5L-18 116C-34 112 -49 106 -63 98L-115 113L-143 63L-109 21C-115 6 -119 -9 -120 -25L-164 -58L-146 -112L-91 -116C-82 -129 -71 -141 -58 -151L-50 -205L0 -198Z" fill="url(#gearMetal)"/>
+      <circle r="132" fill="#22170C"/>
+      <circle r="96" fill="url(#gearFace)"/>
+      <circle r="44" fill="#070504" stroke="#E0AF53" stroke-width="12"/>
+      <circle r="20" fill="#E6BB61"/>
+    </g>
+
+    <g transform="translate(1180 316)" filter="url(#gearShadow)">
+      <path d="M0 -142L21 -110C32 -107 42 -103 52 -97L88 -108L108 -72L84 -42C89 -31 91 -20 92 -9L123 14L111 52L72 55C66 64 58 72 49 79L43 118H2L-14 83C-25 80 -36 76 -45 70L-82 81L-102 45L-78 15C-82 4 -85 -7 -85 -19L-116 -42L-104 -80L-65 -83C-59 -92 -50 -101 -42 -108L-35 -146L0 -142Z" fill="url(#gearMetal)"/>
+      <circle r="91" fill="#22170C"/>
+      <circle r="66" fill="url(#gearFace)"/>
+      <circle r="30" fill="#070504" stroke="#E0AF53" stroke-width="9"/>
+      <circle r="13" fill="#E6BB61"/>
+    </g>
+
+    <g opacity="0.9" font-family="Inter, Arial, sans-serif">
+      <rect x="342" y="586" width="222" height="54" rx="27" fill="#18110A" stroke="#3C2B16"/>
+      <text x="453" y="620" text-anchor="middle" fill="#E8C36A" font-size="20" font-weight="700">deploy</text>
+      <rect x="689" y="586" width="222" height="54" rx="27" fill="#18110A" stroke="#3C2B16"/>
+      <text x="800" y="620" text-anchor="middle" fill="#E8C36A" font-size="20" font-weight="700">scale</text>
+      <rect x="1036" y="586" width="222" height="54" rx="27" fill="#18110A" stroke="#3C2B16"/>
+      <text x="1147" y="620" text-anchor="middle" fill="#E8C36A" font-size="20" font-weight="700">serve</text>
+    </g>
+  </g>
+
+  </g>
+
+  <defs>
+    <filter id="panelShadow" x="195" y="116" width="1210" height="668" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="32" stdDeviation="28" flood-color="#000000" flood-opacity="0.46"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="42" flood-color="#C8952E" flood-opacity="0.08"/>
+    </filter>
+    <filter id="beltShadow" x="328" y="242" width="944" height="320" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="24" stdDeviation="20" flood-color="#000000" flood-opacity="0.48"/>
+    </filter>
+    <filter id="gearShadow" x="-210" y="-250" width="420" height="500" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="24" stdDeviation="18" flood-color="#000000" flood-opacity="0.5"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#E2A942" flood-opacity="0.2"/>
+    </filter>
+    <radialGradient id="backdrop" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(812 590) rotate(90) scale(720 760)">
+      <stop stop-color="#23160A"/>
+      <stop offset="0.48" stop-color="#0B0704"/>
+      <stop offset="1" stop-color="#000000"/>
+    </radialGradient>
+    <linearGradient id="panel" x1="800" y1="203" x2="800" y2="674" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#17110A"/>
+      <stop offset="1" stop-color="#080604"/>
+    </linearGradient>
+    <linearGradient id="beltTop" x1="404" y1="474" x2="1198" y2="316" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7A5527"/>
+      <stop offset="0.5" stop-color="#C8952E"/>
+      <stop offset="1" stop-color="#5B3C19"/>
+    </linearGradient>
+    <linearGradient id="beltEdge" x1="11" y1="701" x2="1614" y2="585" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6D4820"/>
+      <stop offset="0.5" stop-color="#D5A347"/>
+      <stop offset="1" stop-color="#513313"/>
+    </linearGradient>
+    <linearGradient id="beltGlow" x1="20" y1="692" x2="1598" y2="573" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E8C26A" stop-opacity="0.24"/>
+      <stop offset="0.55" stop-color="#FFD27A" stop-opacity="0.65"/>
+      <stop offset="1" stop-color="#E8C26A" stop-opacity="0.16"/>
+    </linearGradient>
+    <linearGradient id="thread" x1="418" y1="455" x2="1184" y2="325" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8D984" stop-opacity="0.15"/>
+      <stop offset="0.52" stop-color="#FFF1B5"/>
+      <stop offset="1" stop-color="#F8D984" stop-opacity="0.25"/>
+    </linearGradient>
+    <linearGradient id="gearMetal" x1="-84" y1="-166" x2="91" y2="139" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F4C973"/>
+      <stop offset="0.43" stop-color="#A76F25"/>
+      <stop offset="1" stop-color="#5D3C18"/>
+    </linearGradient>
+    <radialGradient id="gearFace" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="rotate(90) scale(96)">
+      <stop stop-color="#F7D98F"/>
+      <stop offset="0.42" stop-color="#C8952E"/>
+      <stop offset="1" stop-color="#5E3B16"/>
+    </radialGradient>
+  </defs>
+</svg>

@@ -5,6 +5,7 @@ date: 2026-05-10
 category: runtime-systems
 author: Opeyemi & Stephen
 excerpt: "Modern AI systems require more than offline evaluation. They require operational intelligence capable of observing, profiling, and adapting behaviour under real runtime conditions."
+preview_image: /assets/images/blog/runtime-operational-intelligence-cover-v3.png
 ---
 
 Modern AI systems are no longer isolated model endpoints.

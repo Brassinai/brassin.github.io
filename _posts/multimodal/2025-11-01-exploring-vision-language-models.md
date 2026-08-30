@@ -5,6 +5,7 @@ date: 2025-11-01
 category: vlm
 author: BrassinAI
 excerpt: "A deep dive into Vision-Language Models - systems that connect visual perception with natural language understanding."
+preview_image: /assets/images/blog/vision-language-models-cover-v4.png
 ---
 
 This article introduces **Vision-Language Models (VLMs)** - systems that connect visual perception with natural language understanding. VLMs can caption images, answer questions about pictures, or even generate visuals from text prompts.

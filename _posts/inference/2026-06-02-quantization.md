@@ -6,6 +6,7 @@ category: inference
 author:
  - Stephen Oni
 excerpt: "A Brief introduction to Quantization and Attention workflow for Inference"
+preview_image: /assets/images/insights/quantization-attention-workflow-cover-v3.png
 ---
 
 # Inference: Quantization and Attention workflow

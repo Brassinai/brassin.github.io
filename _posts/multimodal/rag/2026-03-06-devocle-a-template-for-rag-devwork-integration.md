@@ -7,6 +7,7 @@ author:
  - Stephen Oni
  - Opeyemi Bamigbade
 excerpt: "A case study in building a fine-tuned RAG system for DevOps log debugging, from dataset curation to Docker Desktop extension."
+preview_image: /assets/images/insights/devocle-rag-devops-cover-v2.png
 ---
 
 # Devocle

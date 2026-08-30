@@ -5,62 +5,105 @@ description: "BrassinAI insights, case studies, and presentations on applied AI 
 permalink: /pages/insights/
 ---
 
-<div class="blog-intro">
-  <div class="blog-hero">
-    <h1>Insights &bull; Slides &bull; Presentations</h1>
-    <p class="blog-desc">Presentations and case studies from our work on specific projects.</p>
-    <p class="blog-desc">
-      BrassinAI case studies, product walkthroughs, and presentation-style
-      explainers for applied AI systems and research-led engineering work.
-    </p>
+<section class="insights-prototype" id="insights-feed" aria-labelledby="insights-prototype-title">
+  <div class="insights-prototype-head">
+    <h1 id="insights-prototype-title">Insights</h1>
+    <p class="insights-prototype-note">We draft and present technical insights from a series of projects we’ve worked on, both as documentation and as useful information for our readers.</p>
   </div>
 
-  <nav class="filters" id="filters" aria-label="Filter slides by category">
-    <button class="filter-btn" data-filter="agentic">Agentic AI</button>
-    <button class="filter-btn" data-filter="rag">RAG</button>
-    <button class="filter-btn" data-filter="multimodal">Multimodal AI</button>
-    <button class="filter-btn" data-filter="inference">Inference</button>
-    <button class="filter-btn" data-filter="hpc">HPC</button>
-    <button class="filter-btn" data-filter="general">General</button>
-    <button class="filter-btn active" data-filter="all">All</button>
+  {% assign slide_posts = site.posts | where: "layout", "slide" | sort: "date" | reverse %}
+  {% assign slide_categories = slide_posts | map: "category" | uniq %}
+  {% assign use_grid_layout = false %}
+  {% if slide_posts.size < 6 %}
+    {% assign use_grid_layout = true %}
+  {% endif %}
+
+  <nav class="filters" id="insights-filters" aria-label="Filter insights by category">
+    {% for category in slide_categories %}
+    {% assign cat_key = category | downcase %}
+    <button type="button" class="filter-btn" data-filter="{{ cat_key }}">
+      {% case cat_key %}
+      {% when "rag" %}RAG
+      {% when "hpc" %}HPC
+      {% when "agentic" %}Agentic AI
+      {% when "multimodal" %}Multimodal AI
+      {% when "inference" %}Inference
+      {% else %}{{ category | upcase }}
+      {% endcase %}
+    </button>
+    {% endfor %}
+    <button type="button" class="filter-btn active" data-filter="all">All</button>
   </nav>
 
-  <div class="post-grid" id="posts">
-    {% assign sorted = site.posts | sort: "date" | reverse %}
-    {% for post in sorted %}
-    {% if post.layout == "slide" %}
-    <a href="{{ post.url | relative_url }}" class="card" data-cat="{{ post.category | downcase }}" style="text-decoration:none;color:inherit;">
-      <h2>{{ post.title }}</h2>
-      <p>{{ post.excerpt | strip_html | truncatewords: 28 }}</p>
-      <div class="meta">
-        <span class="badge badge-{{ post.category | downcase }}">{{ post.category | upcase }}</span>
-        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %d, %Y" }}</time>
-      </div>
-    </a>
+  <div class="insights-board{% if use_grid_layout %} insights-board--grid{% endif %}" aria-label="Insights masonry cards">
+    {% for post in slide_posts %}
+    {% assign pin_mod = forloop.index0 | modulo: 6 %}
+    {% assign pin_class = "insight-pin--short" %}
+    {% if pin_mod == 0 %}
+      {% assign pin_class = "insight-pin--medium" %}
+    {% elsif pin_mod == 1 %}
+      {% assign pin_class = "insight-pin--tall" %}
+    {% elsif pin_mod == 2 %}
+      {% assign pin_class = "insight-pin--short" %}
+    {% elsif pin_mod == 3 %}
+      {% assign pin_class = "insight-pin--medium" %}
+    {% elsif pin_mod == 4 %}
+      {% assign pin_class = "insight-pin--short" %}
+    {% elsif pin_mod == 5 %}
+      {% assign pin_class = "insight-pin--tall" %}
     {% endif %}
+
+    <article class="insight-pin{% if use_grid_layout %} insight-pin--grid-item{% endif %} {{ pin_class }}" data-cat="{{ post.category | downcase }}">
+      <a href="{{ post.url | relative_url }}" class="insight-pin-card" style="text-decoration:none;color:inherit;">
+        <div class="insight-pin-media">
+          <div class="insight-pin-media-wrap">
+            {% if post.preview_image %}
+            <img src="{{ post.preview_image | relative_url }}" alt="{{ post.title }} preview" class="insight-pin-img" loading="lazy" />
+            {% else %}
+            <img src="{{ '/assets/images/products/infercloud-workspace-real.png' | relative_url }}" alt="{{ post.title }} preview" class="insight-pin-img" loading="lazy" />
+            {% endif %}
+          </div>
+        </div>
+        <div class="insight-pin-body">
+          <h2>{{ post.title }}</h2>
+          <p class="insight-pin-date">{{ post.date | date: "%b %d, %Y" }}</p>
+          <p class="insight-pin-desc">{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
+        </div>
+      </a>
+    </article>
     {% endfor %}
   </div>
 
-  <p class="post-feed-empty" id="feed-empty" hidden>No presentations in this category yet.</p>
-</div>
+  <p class="post-feed-empty" id="feed-empty" hidden>No insights in this category yet.</p>
+</section>
 
 <script>
-  const filterBtns = document.querySelectorAll(".filter-btn");
-  const cards = document.querySelectorAll("#posts .card");
-  const empty = document.getElementById("feed-empty");
+  (() => {
+    const feed = document.getElementById("insights-feed");
+    if (!feed) return;
 
-  filterBtns.forEach(btn =>
-    btn.addEventListener("click", () => {
-      filterBtns.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      const cat = btn.dataset.filter;
-      let visible = 0;
-      cards.forEach(card => {
-        const show = cat === "all" || card.dataset.cat === cat;
-        card.style.display = show ? "" : "none";
-        if (show) visible++;
-      });
-      empty.hidden = visible > 0;
-    })
-  );
+    const filterBtns = feed.querySelectorAll(".filter-btn");
+    const cards = feed.querySelectorAll(".insights-board .insight-pin");
+    const empty = feed.querySelector(".post-feed-empty");
+
+    filterBtns.forEach(btn =>
+      btn.addEventListener("click", () => {
+        filterBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const cat = (btn.dataset.filter || "").toLowerCase();
+
+        let visible = 0;
+
+        cards.forEach(card => {
+          const show = cat === "all" || (card.dataset.cat || "").toLowerCase() === cat;
+          card.style.display = show ? "" : "none";
+          if (show) visible++;
+        });
+
+        if (empty) {
+          empty.hidden = visible > 0;
+        }
+      })
+    );
+  })();
 </script>

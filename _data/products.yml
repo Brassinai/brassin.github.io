@@ -12,19 +12,31 @@
     - Docker
     - RAG
 
-- img: https://images.unsplash.com/photo-1759771963975-8a4885446f1f?w=800&auto=format&fit=crop&q=80
-  alt: "VAAS"
-  tag: "INFERENCE · DIGITAL FORENSICS"
-  title: "VAAS - Detecting Image Manipulation at Scale"
-  desc: "AI-powered system that detects and localises image tampering, delivering global integrity signals and pixel-level evidence."
-  link: "https://huggingface.co/OBA-Research/vaas"
-  github: "https://github.com/OBA-Research/VAAS"
-  status: "Live"
+- img: "/assets/images/products/inferops-gear-belt.svg"
+  alt: "InferOps gear and drive belt illustration"
+  tag: "Inference · Operations"
+  title: "InferOps - Inference Orchestration"
+  desc: "Orchestrates inference servers so teams can provision, run, and manage serving endpoints without wrestling with infrastructure."
+  link: "#"
+  github: ""
+  status: "Ongoing"
   stack:
-    - PyTorch
-    - Vision Transformers
-    - SegFormer
-    - Hugging Face
+    - Inference Serving
+    - Orchestration
+    - GPU Operations
+
+- img: "/assets/images/products/infercloud-serenity.jpg"
+  alt: "Serene misty lake and forested mountains in Jiujiang, China"
+  tag: "Inference · Cloud"
+  title: "InferCloud - Shared Inference Cloud"
+  desc: "Connects multiple inference servers to one cloud access layer, giving users a calm, simple place to discover and use available models."
+  link: "#"
+  github: ""
+  status: "Ongoing"
+  stack:
+    - Model Routing
+    - Cloud Access
+    - Inference Servers
 
 - img: https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&auto=format&fit=crop&q=80
   alt: "Debrief - Meeting Intelligence"
@@ -39,19 +51,6 @@
     - Multi-Agent Systems
     - Knowledge Search
 
-- img: https://images.unsplash.com/photo-1707332287886-84315bbb04bb?w=800&auto=format&fit=crop&q=80
-  alt: "Ludo"
-  tag: "SaaS · Multi-Agent Systems"
-  title: "Ludo - Jobboard Agent"
-  desc: "Ludo is a jobboard agent built to give job seekers an unfair advantage - helping them manage applications, merge CVs, orchestrate prep, and solve interview questions with agentic AI."
-  link: "https://ludo.brassinai.com/"
-  github: ""
-  status: "live"
-  stack:
-    - Agentic AI
-    - SSE
-    - Browser Automation
-
 - img: "/assets/images/compno-style-system.svg"
   alt: "Editorial illustration of source documents flowing through multiple agents into a final polished draft"
   tag: "AI · Multi-Agent Systems"
@@ -59,7 +58,7 @@
   desc: "Multi-agent AI that writes exactly the way the user wants - inferring style from documents and drawing on multiple sources to shape the final writing."
   link: "https://compno.brassinai.com/"
   github: ""
-  status: "live"
+  status: "Ongoing"
   stack:
     - Multi-Agent Systems
     - Style Inference

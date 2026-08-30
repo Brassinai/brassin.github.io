@@ -5,6 +5,7 @@ date: 2026-06-09
 category: HPC
 author: Emmanuel Alo
 excerpt: "From silicon to serving: GPUs, the execution model, GPU DSLs and Triton, CUDA Graphs, FlashInfer attention, and vLLM."
+preview_image: /assets/images/insights/gpu-llm-serving-primer-cover-v2.png
 ---
 
 # GPU Programming & LLM Serving
