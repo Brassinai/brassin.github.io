@@ -1150,6 +1150,10 @@ image: "/images/legacy/brassin2.jpg"
         overflow: hidden;
       }
 
+      .how-we-work-copy.is-collapsed {
+        max-height: 27rem;
+      }
+
       .manifesto-copy p,
       .how-we-work-copy p {
         margin: 0;
@@ -1184,6 +1188,67 @@ image: "/images/legacy/brassin2.jpg"
         letter-spacing: var(--tracking-label);
         text-transform: uppercase;
         color: var(--accent2);
+      }
+
+      .team-proof-link {
+        appearance: none;
+        border: 0;
+        border-bottom: 1px dotted rgba(232, 191, 90, 0.86);
+        border-radius: 0;
+        background: transparent;
+        padding: 0;
+        font: inherit;
+        color: #f0d47f;
+        cursor: help;
+        text-align: inherit;
+        text-decoration: none;
+        text-underline-offset: 0.26em;
+        transition:
+          color 0.18s ease,
+          border-color 0.18s ease;
+      }
+
+      .team-proof-link:hover,
+      .team-proof-link:focus-visible {
+        border-color: rgba(255, 247, 223, 0.92);
+        color: var(--soft);
+        outline: none;
+      }
+
+      .team-proof-link:focus-visible {
+        box-shadow: 0 0 0 3px rgba(232, 191, 90, 0.16);
+      }
+
+      .team-proof-preview {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 80;
+        width: min(340px, calc(100vw - 32px));
+        padding: 0.92rem 1rem;
+        border: 1px solid rgba(232, 191, 90, 0.34);
+        border-radius: 8px;
+        background:
+          linear-gradient(180deg, rgba(34, 30, 22, 0.98), rgba(15, 14, 12, 0.98));
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.4);
+        color: rgba(255, 247, 223, 0.92);
+        font-family: var(--font-body);
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.62;
+        letter-spacing: 0.01em;
+        opacity: 0;
+        pointer-events: none;
+        transform: translate3d(0, 6px, 0);
+        transition:
+          opacity 0.16s ease,
+          transform 0.16s ease;
+      }
+
+      .team-proof-preview.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translate3d(0, 0, 0);
       }
 
       .manifesto-toggle,
@@ -1745,7 +1810,7 @@ image: "/images/legacy/brassin2.jpg"
             <div class="product-body">
               <h3>InferCloud</h3>
               <p>
-                An OpenRouter-like platform that connects multiple inference servers through a shared routing layer, making them available to downstream teams and users.
+                Provides a platform for individuals and organizations to make their inference servers, running open-source models, available for others to use at a regulated cost.
               </p>
             </div>
           </article>
@@ -1758,9 +1823,8 @@ image: "/images/legacy/brassin2.jpg"
             <div class="product-body">
               <h3>InferOps</h3>
               <p>
-                A command-line tool that helps teams provision GPUs and stand up
-                inference servers quickly, from machine setup to serving-ready
-                endpoints.
+                Provision and manage your own inference servers, run open-source
+                model runtimes, and expose them securely to the internet.
               </p>
             </div>
           </article>
@@ -1889,20 +1953,41 @@ image: "/images/legacy/brassin2.jpg"
           <h2 class="section-title products-title how-we-work-title">How We Work</h2>
           <div class="how-we-work-copy is-collapsed" id="how-we-work-copy">
             <p>
-              BrassinAI comprises experts across different AI domains, each
-              with solid years of experience in corporate environments, open
-              source communities, and competitive data science. BrassinAI is
+              BrassinAI brings together experts across different AI domains,
+              with years of experience in corporate environments, open-source
+              communities, and competitive data science. That background shows
+              up in concrete work across
+              <button
+                type="button"
+                class="team-proof-link"
+                data-proof-preview="The BrassinAI team includes the co-founder of JSDATA, publisher of machine learning tools for the web ecosystem. Team members have also contributed to Web ML communities and helped develop frontend machine learning tooling for various organizations.">
+                Web ML and open-source AI communities</button>,
+              <button
+                type="button"
+                class="team-proof-link"
+                data-proof-preview="Our team includes competitive data scientists who have earned medals and prizes by solving machine learning challenges for organizations such as Uber, UNICEF, Standard Bank, and Zindi.">
+                data science and deep learning competitions</button>, and
+              <button
+                type="button"
+                class="team-proof-link"
+                data-proof-preview="Across the team, members have contributed to open-source tools and helped build enterprise systems for corporate, public-sector, and private-sector environments.">
+                open-source and enterprise systems</button>.
+            </p>
+            <p>
+              BrassinAI is
               structured in such a way that each of these experts can take full
               ownership of the core systems we operate in.
             </p>
             <p class="copy-label">To Business</p>
             <p>
               We dedicate significant time to meeting and aligning with our
-              business customers. We do not just try to understand what they
-              want us to do. We aim to be brutally honest about the feasibility
-              of the problem, understanding why the problem exists, what is
-              broken, and what makes up the system they are currently operating
-              in.
+              business customers.
+            </p>
+            <p>
+              We do not just try to understand what they want us to do. We aim
+              to be brutally honest about the feasibility of the problem,
+              understanding why the problem exists, what is broken, and what
+              makes up the system they are currently operating in.
             </p>
             <p>
               We also take time to absorb their domain knowledge, where we
@@ -2033,7 +2118,7 @@ image: "/images/legacy/brassin2.jpg"
         <div class="footer-col">
           <h5>Company</h5>
           <ul>
-            <li><a href="#team">Team</a></li>
+            <li><a href="#how-we-work">Team</a></li>
             <li><a href="pages/blog">Blog</a></li>
             <li><a href="pages/products">Products</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -2156,6 +2241,83 @@ image: "/images/legacy/brassin2.jpg"
           toggle.setAttribute("aria-expanded", String(!isCollapsed));
         });
       });
+
+      const proofLinks = document.querySelectorAll("[data-proof-preview]");
+      if (proofLinks.length) {
+        const proofPreview = document.createElement("div");
+        proofPreview.className = "team-proof-preview";
+        proofPreview.setAttribute("role", "tooltip");
+        document.body.appendChild(proofPreview);
+
+        let activeProof = null;
+        let proofHideTimer = null;
+
+        function clearProofHideTimer() {
+          if (!proofHideTimer) return;
+          window.clearTimeout(proofHideTimer);
+          proofHideTimer = null;
+        }
+
+        function positionProofPreview(target) {
+          const rect = target.getBoundingClientRect();
+          const previewRect = proofPreview.getBoundingClientRect();
+          const margin = 16;
+          const gap = 12;
+          const left = Math.min(
+            Math.max(margin, rect.left + rect.width / 2 - previewRect.width / 2),
+            window.innerWidth - previewRect.width - margin
+          );
+          const top = rect.bottom + gap;
+
+          proofPreview.style.left = `${left}px`;
+          proofPreview.style.top = `${Math.max(margin, top)}px`;
+        }
+
+        function showProofPreview(target) {
+          clearProofHideTimer();
+          activeProof = target;
+          proofPreview.textContent = target.dataset.proofPreview;
+          proofPreview.classList.add("is-visible");
+          requestAnimationFrame(() => positionProofPreview(target));
+        }
+
+        function hideProofPreview(target) {
+          if (target && activeProof !== target) return;
+          clearProofHideTimer();
+          activeProof = null;
+          proofPreview.classList.remove("is-visible");
+        }
+
+        function scheduleHideProofPreview(target) {
+          clearProofHideTimer();
+          proofHideTimer = window.setTimeout(() => {
+            hideProofPreview(target);
+          }, 180);
+        }
+
+        proofLinks.forEach((link) => {
+          link.addEventListener("pointerenter", () => showProofPreview(link));
+          link.addEventListener("pointerleave", () => scheduleHideProofPreview(link));
+          link.addEventListener("focus", () => showProofPreview(link));
+          link.addEventListener("blur", () => scheduleHideProofPreview(link));
+          link.addEventListener("click", () => showProofPreview(link));
+        });
+
+        proofPreview.addEventListener("pointerenter", clearProofHideTimer);
+        proofPreview.addEventListener("pointerleave", () => scheduleHideProofPreview(activeProof));
+
+        window.addEventListener("resize", () => {
+          if (activeProof) positionProofPreview(activeProof);
+        });
+
+        window.addEventListener("scroll", () => {
+          if (activeProof) positionProofPreview(activeProof);
+        }, { passive: true });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") hideProofPreview();
+        });
+      }
     </script>
   </body>
 </html>
