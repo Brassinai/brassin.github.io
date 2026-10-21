@@ -1,0 +1,24 @@
+{% assign product = include.product %}
+{% assign story_heading = include.heading | default: 'h2' %}
+{% assign story_link = product.link | default: '#' %}
+{% assign story_external = false %}
+{% if story_link contains '://' %}{% assign story_external = true %}{% endif %}
+<article class="ds-product-story ds-product-story--{{ product.layout | default: 'standard' }}" id="{{ product.title | slugify }}" aria-labelledby="product-{{ product.key }}-title">
+  <figure class="ds-product-story__figure">
+    <div class="ds-product-story__image ds-product-story__image--{{ product.image_fit | default: 'cover' }}">
+      <img src="{{ product.img | relative_url }}" alt="{{ product.alt | escape }}" width="{{ product.image_width }}" height="{{ product.image_height }}" {% if include.priority %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async">
+    </div>
+  </figure>
+  <div class="ds-product-story__copy">
+    <span class="ds-eyebrow">{{ product.tag }}</span>
+    <{{ story_heading }} id="product-{{ product.key }}-title">{{ product.display_title | default: product.title }}</{{ story_heading }}>
+    <p class="ds-product-story__promise">{{ product.promise }}</p>
+    <p class="ds-product-story__description">{{ product.desc }}</p>
+    <div class="ds-product-story__end">
+      <span class="ds-status">{{ product.status }}</span>
+      {% if story_link != '#' and story_link != '' %}
+      <a class="ds-text-link" href="{% if story_external %}{{ story_link }}{% else %}{{ story_link | relative_url }}{% endif %}" {% if story_external %}target="_blank" rel="noopener"{% endif %}>{{ product.action | default: 'View product' }} <span aria-hidden="true">↗</span></a>
+      {% endif %}
+    </div>
+  </div>
+</article>

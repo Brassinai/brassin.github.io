@@ -1,8 +1,61 @@
-- img: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=800&auto=format&fit=crop&q=80"
-  alt: "Devocle - RAG-Powered Debugging for DevOps"
-  tag: "DevOps · RAG"
+- key: infercloud
+  title: "InferCloud - Shared Inference Cloud"
+  display_title: "InferCloud"
+  promise: "One access layer for shared inference."
+  desc: "Connects multiple inference servers to one cloud access layer, giving users a calm, simple place to discover and use available models."
+  tag: "Inference · Cloud"
+  img: "/assets/images/products/infercloud-workspace-real.webp"
+  alt: "Concept render of a black inference server connected by gold cables"
+  caption: "InferCloud concept illustration · connected inference servers"
+  image_fit: "cover"
+  image_width: 1195
+  image_height: 1316
+  layout: "feature"
+  action: "Open InferCloud"
+  link: "https://dashboard.148.113.207.91.sslip.io/"
+  github: ""
+  status: "In development"
+  stack:
+    - Model Routing
+    - Cloud Access
+    - Inference Servers
+
+- key: inferops
+  title: "InferOps - Inference Orchestration"
+  display_title: "InferOps"
+  promise: "Operate inference without infrastructure friction."
+  desc: "Orchestrates inference servers so teams can provision, run, and manage serving endpoints without wrestling with infrastructure."
+  tag: "Inference · Operations"
+  img: "/assets/images/products/inferops-terminal.svg"
+  alt: "Illustrated terminal showing an InferOps inference provisioning workflow"
+  caption: "InferOps interface concept · provisioning workflow"
+  image_fit: "contain"
+  image_width: 1600
+  image_height: 900
+  layout: "standard"
+  action: "View InferOps on GitHub"
+  link: "https://github.com/brassinai/inferops"
+  github: "https://github.com/brassinai/inferops"
+  status: "In development"
+  stack:
+    - Inference Serving
+    - Orchestration
+    - GPU Operations
+
+- key: devocle
   title: "Devocle - RAG-Powered Debugging for DevOps"
+  display_title: "Devocle"
+  promise: "Turn raw logs into useful next steps."
   desc: "Fine-tuned RAG system that turns raw Nginx log errors into actionable fixes - served via vLLM on Modal and delivered as a Docker Desktop extension."
+  tag: "DevOps · RAG"
+  img: "/assets/images/insights/devocle-rag-devops-cover-v2.png"
+  alt: "Green Devocle product illustration showing a debugging interface beside a server"
+  caption: "Devocle product illustration · debugging workflow"
+  image_fit: "cover"
+  image_width: 1536
+  image_height: 1024
+  layout: "standard"
+  action: "Read the project"
   link: "/rag/devocle-a-template-for-rag-devwork-integration"
   github: "https://github.com/Brassin/devocle"
   status: "Live"
@@ -12,37 +65,20 @@
     - Docker
     - RAG
 
-- img: "/assets/images/products/inferops-gear-belt.svg"
-  alt: "InferOps gear and drive belt illustration"
-  tag: "Inference · Operations"
-  title: "InferOps - Inference Orchestration"
-  desc: "Orchestrates inference servers so teams can provision, run, and manage serving endpoints without wrestling with infrastructure."
-  link: "#"
-  github: ""
-  status: "Ongoing"
-  stack:
-    - Inference Serving
-    - Orchestration
-    - GPU Operations
-
-- img: "/assets/images/products/infercloud-serenity.jpg"
-  alt: "Serene misty lake and forested mountains in Jiujiang, China"
-  tag: "Inference · Cloud"
-  title: "InferCloud - Shared Inference Cloud"
-  desc: "Connects multiple inference servers to one cloud access layer, giving users a calm, simple place to discover and use available models."
-  link: "#"
-  github: ""
-  status: "Ongoing"
-  stack:
-    - Model Routing
-    - Cloud Access
-    - Inference Servers
-
-- img: https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&auto=format&fit=crop&q=80
-  alt: "Debrief - Meeting Intelligence"
-  tag: "Enterprise · Meeting Intelligence"
+- key: debrief
   title: "Debrief - Every Conversation Becomes Permanent Intelligence"
+  display_title: "Debrief"
+  promise: "Make conversations searchable knowledge."
   desc: "Turns meeting recordings into a structured, searchable knowledge bank. Decisions, commitments, and insights captured automatically - speaker-attributed, instantly queryable, and ready to power your next strategic move."
+  tag: "Enterprise · Meeting Intelligence"
+  img: "/assets/images/products/debrief-disks-robot.webp"
+  alt: "Concept illustration of meeting recordings connected to a listening assistant"
+  caption: "Debrief concept illustration · conversations to knowledge"
+  image_fit: "cover"
+  image_width: 1536
+  image_height: 1024
+  layout: "reverse"
+  action: "Explore Debrief"
   link: "https://debrief.brassinai.com/"
   github: ""
   status: "Live"
@@ -51,14 +87,23 @@
     - Multi-Agent Systems
     - Knowledge Search
 
-- img: "/assets/images/compno-style-system.svg"
-  alt: "Editorial illustration of source documents flowing through multiple agents into a final polished draft"
-  tag: "AI · Multi-Agent Systems"
+- key: compno
   title: "Compno - Style-Aware AI Writer"
+  display_title: "Compno"
+  promise: "Writing shaped by your sources and style."
   desc: "Multi-agent AI that writes exactly the way the user wants - inferring style from documents and drawing on multiple sources to shape the final writing."
+  tag: "AI · Multi-Agent Systems"
+  img: "/assets/images/compno-style-system.svg"
+  alt: "Diagram of source documents flowing through agents into a styled draft"
+  caption: "Compno system diagram · sources, style and final draft"
+  image_fit: "contain"
+  image_width: 1200
+  image_height: 800
+  layout: "technical"
+  action: "Explore Compno"
   link: "https://compno.brassinai.com/"
   github: ""
-  status: "Ongoing"
+  status: "In development"
   stack:
     - Multi-Agent Systems
     - Style Inference

@@ -14,10 +14,10 @@
     </ul>
 
     <div class="nav-cta">
-      <a href="https://calendly.com/business-brassinai/30min" target="_blank" rel="noopener" class="btn btn-primary">Get in touch</a>
+      <a href="https://calendly.com/business-brassinai/30min" target="_blank" rel="noopener" class="btn btn-primary">Book a call</a>
     </div>
 
-    <button class="hamburger" aria-label="Toggle menu" id="hamburger">
+    <button class="hamburger" aria-label="Toggle menu" aria-controls="mobile-menu" aria-expanded="false" id="hamburger">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -28,7 +28,7 @@
     <a href="{{ '/' | relative_url }}#manifesto">Manifesto</a>
     <a href="{{ '/pages/insights/' | relative_url }}">Insights</a>
     <a href="{{ '/pages/blog/' | relative_url }}">Blog</a>
-    <a href="https://calendly.com/business-brassinai/30min" target="_blank" rel="noopener" class="btn btn-primary">Get in touch</a>
+    <a href="https://calendly.com/business-brassinai/30min" target="_blank" rel="noopener" class="btn btn-primary">Book a call</a>
   </div>
 </nav>
 <script>
@@ -37,10 +37,11 @@
     var mobileMenu = document.getElementById('mobile-menu');
     if (hamburger && mobileMenu) {
       hamburger.addEventListener('click', function() {
-        mobileMenu.classList.toggle('open');
+        var isOpen = mobileMenu.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', String(isOpen));
       });
       mobileMenu.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', function() { mobileMenu.classList.remove('open'); });
+        a.addEventListener('click', function() { mobileMenu.classList.remove('open'); hamburger.setAttribute('aria-expanded', 'false'); });
       });
     }
   })();

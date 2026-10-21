@@ -1,0 +1,15 @@
+{% assign post = include.post %}
+{% assign preview_image = include.image | default: post.preview_image | default: '/images/articles/agentL2.png' %}
+{% assign preview_alt = include.image_alt %}
+{% unless preview_alt %}{% assign preview_alt = post.title | append: ' preview' %}{% endunless %}
+<article class="ds-archive-card{% if include.priority %} ds-archive-card--featured{% endif %}" data-cat="{{ post.category | downcase }}">
+  <a class="ds-archive-card__media" href="{{ post.url | relative_url }}" aria-label="Read {{ post.title | escape }}">
+    <img src="{{ preview_image | relative_url }}" alt="{{ preview_alt | escape }}" loading="{% if include.priority %}eager{% else %}lazy{% endif %}" />
+  </a>
+  <div class="ds-archive-card__copy">
+    <span class="ds-eyebrow">{{ post.category | replace: '-', ' ' }} / {{ post.date | date: "%b %d, %Y" }}</span>
+    <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+    <p>{{ post.excerpt | strip_html | truncatewords: 26 }}</p>
+    <a class="ds-text-link" href="{{ post.url | relative_url }}">{{ include.read_label }} <span aria-hidden="true">↗</span></a>
+  </div>
+</article>

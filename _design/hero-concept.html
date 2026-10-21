@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BrassinAI — Signal Field hero concept</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0b0907;--ink:#edeae3;--muted:#a09180;--gold:#c8952e;--rule:#3a3023;--gutter:48px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}button{font:inherit}a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:4px}.wrap{max-width:1296px;margin:auto;padding-inline:var(--gutter)}
+    .nav{height:80px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:3;border-bottom:1px solid #68542c55}.brand{display:flex;align-items:center;gap:12px;font:600 18px Sora,sans-serif;letter-spacing:-.04em}.mark{display:grid;place-items:center;width:28px;height:28px;background:var(--gold);color:var(--bg);font:700 16px Sora,sans-serif;border-radius:5px}.nav-links{display:flex;gap:32px;align-items:center;font-size:14px}.nav-links a:not(:last-child){color:var(--muted)}.nav-links a:last-child{color:var(--gold)}
+    .hero{position:relative;min-height:calc(100svh - 80px);isolation:isolate;overflow:hidden;background:radial-gradient(ellipse 42% 38% at 79% 52%,#9c602d52,transparent 75%),radial-gradient(ellipse 60% 55% at 80% 92%,#7b4d2338,transparent 80%),var(--bg)}.hero::after{content:"";position:absolute;z-index:0;inset:0;pointer-events:none;background:linear-gradient(90deg,var(--bg) 0%,#0b0907f7 29%,#0b0907ad 52%,#0b090719 83%),linear-gradient(0deg,#0b0907ad,transparent 25%)}.field-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1}.hero-inner{position:relative;z-index:1;min-height:calc(100svh - 80px);display:flex;flex-direction:column;justify-content:center;padding-block:112px 124px}.hero-copy{max-width:1080px}.eyebrow{font:500 11px/1.5 'JetBrains Mono',monospace;letter-spacing:.085em;text-transform:uppercase;color:var(--gold)}.hero h1{display:flex;flex-direction:column;font:700 clamp(58px,6.5vw,96px)/1.02 Sora,sans-serif;letter-spacing:-.075em;margin:0;max-width:1080px}.hero h1 span:nth-child(2){padding-left:clamp(32px,8vw,104px)}.hero h1 .highlight{color:#d3ab62}.lead{font:400 clamp(22px,2.2vw,28px)/1.42 Newsreader,serif;color:#b8aa99;max-width:660px;margin:48px 0 32px}.actions{display:flex;gap:24px;align-items:center;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:48px;padding:11px 20px;background:var(--gold);color:var(--bg);font:600 14px/1.2 Inter,sans-serif}.btn:hover{background:#e1ae46}.btn-ghost{background:transparent;color:var(--ink);border:1px solid #6b5840}.btn-ghost:hover{background:#17130d}.text-link{display:inline-flex;align-items:center;gap:16px;min-height:44px;border-bottom:1px solid currentColor;font:500 14px Inter,sans-serif}.text-link:hover{color:var(--gold)}.hero-foot{position:absolute;bottom:32px;left:var(--gutter);right:var(--gutter);display:flex;align-items:center;justify-content:space-between;gap:20px;color:#9d8c74}.hero-foot .eyebrow{color:#9d8c74}.pause{position:absolute;z-index:2;right:var(--gutter);bottom:72px;border:1px solid #806331;background:#0b0907cc;color:var(--ink);font:500 11px/1.3 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;padding:10px 12px;cursor:pointer}.pause:hover{border-color:var(--gold)}.pause[hidden]{display:none}
+    .context{border-top:1px solid var(--rule);padding-block:56px 64px;display:grid;grid-template-columns:1fr 1fr;gap:48px}.context h2{font:600 29px/1.15 Sora,sans-serif;letter-spacing:-.05em;margin:12px 0 0}.context p{margin:0;max-width:520px;color:var(--muted)}.context code{color:var(--gold)}
+    @media(max-width:899px){:root{--gutter:32px}.nav{height:72px}.hero,.hero-inner{min-height:calc(100svh - 72px)}.hero h1{font-size:clamp(52px,8vw,72px)}.hero::after{background:linear-gradient(90deg,#0b0907 0%,#0b0907d9 51%,#0b09073d 100%),linear-gradient(0deg,#0b0907bd,transparent 40%)}.context{grid-template-columns:1fr}}
+    @media(max-width:599px){:root{--gutter:24px}.nav{height:64px}.nav-links a:not(:last-child){display:none}.nav-links a:last-child{font-size:12px}.hero,.hero-inner{min-height:calc(100svh - 64px)}.hero-inner{justify-content:flex-start;padding-block:64px 170px}.hero h1{display:block;font-size:clamp(36px,9vw,50px);max-width:100%}.hero h1 span{display:inline;margin-right:.16em}.hero h1 span:last-child{margin-right:0}.hero h1 span:nth-child(2){padding-left:0}.lead{font-size:22px;max-width:31ch;margin:48px 0 28px}.actions{align-items:stretch;gap:12px}.actions .btn{width:100%}.hero::after{background:linear-gradient(180deg,#0b0907 0%,#0b0907f5 26%,#0b0907b8 50%,#0b090733 81%,#0b0907d9 100%)}.hero-foot{bottom:20px;align-items:flex-end}.hero-foot .eyebrow:last-child{display:none}.pause{right:var(--gutter);bottom:64px}.context{padding-block:48px}.context h2{font-size:25px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+  <header class="wrap nav"><a class="brand" href="preview.html#top"><span class="mark" aria-hidden="true">B</span> BrassinAI</a><nav class="nav-links" aria-label="Concept navigation"><a href="preview.html#images">Products</a><a href="preview.html#system">Approach</a><a href="https://calendly.com/business-brassinai/30min">Book a call ↗</a></nav></header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <canvas class="field-canvas" aria-hidden="true"></canvas>
+      <div class="wrap hero-inner"><div class="hero-copy"><h1 id="hero-title"><span>Turning frontier AI</span><span>into</span><span class="highlight">real leverage.</span></h1><p class="lead">We build products, tools and systems that redefine how organizations and individuals use and interact with AI.</p><div class="actions"><a class="btn" href="https://calendly.com/business-brassinai/30min">Contact us</a><a class="btn btn-ghost" href="preview.html#images">View products</a></div></div></div>
+      <button class="pause" type="button" aria-pressed="false" hidden>Pause motion</button>
+    </section>
+    <section class="wrap context"><div><span class="eyebrow">Hero proposal / original concept</span><h2>A field taking shape.</h2></div><p>Warm haze gives the scene cinematic depth. Thousands of restrained points form a topographic field; one gold signal moves through it. The composition keeps the headline and actions readable, with a still version for reduced motion. The original Brassin headline and actions are retained in the production design. This is a local motion preview.</p></section>
+  </main>
+  <script>
+    (() => {
+      const canvas = document.querySelector('.field-canvas');
+      const hero = document.querySelector('.hero');
+      const button = document.querySelector('.pause');
+      const context = canvas.getContext('2d', {alpha:true});
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+      if (!context) return;
+      let width=0,height=0,ratio=1,paused=false,visible=true,last=0,clock=0,pointer=0,targetPointer=0,frameId=0;
+      const observer = new IntersectionObserver(entries => {visible=entries[0]?.isIntersecting ?? false; if(visible && !paused && !reduced.matches) start();});
+      observer.observe(hero);
+      function resize(){
+        const rect=hero.getBoundingClientRect(); width=rect.width; height=rect.height;
+        ratio=Math.min(devicePixelRatio||1,width<600?1.35:1.75);
+        canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);
+        canvas.style.width=width+'px';canvas.style.height=height+'px';
+        context.setTransform(ratio,0,0,ratio,0,0);draw();
+      }
+      function point(u,d,t,mobile){
+        const left=mobile?-width*.14:width*.36;
+        const span=mobile?width*1.38:width*.76;
+        const x=left+span*u;
+        const horizon=mobile?height*.61:height*.20;
+        const yBase=horizon+(height*1.05-horizon)*Math.pow(d,.92);
+        const ridge=-Math.exp(-Math.pow((u-.57)/.32,2))*(mobile?70:185)*(1-.38*d);
+        const wave=Math.sin(u*8.1+d*2.6+t*.17)*(mobile?10:28)*(.15+d*.8);
+        const shoulder=Math.sin(u*3.8+d*1.1-t*.11)*(mobile?11:42)*(.2+d*.7);
+        return [x,yBase+ridge+wave+shoulder+pointer*(d-.5)*7];
+      }
+      function draw(){
+        context.clearRect(0,0,width,height);
+        const mobile=width<600,t=clock/1000;
+        const glow=context.createRadialGradient(width*(mobile?.77:.77),height*(mobile?.78:.55),5,width*(mobile?.77:.77),height*(mobile?.78:.55),width*(mobile?.62:.36));
+        glow.addColorStop(0,'rgba(174,106,40,.24)');glow.addColorStop(.45,'rgba(95,56,22,.11)');glow.addColorStop(1,'rgba(95,56,22,0)');
+        context.fillStyle=glow;context.fillRect(0,0,width,height);
+        const rows=mobile?44:66,columns=mobile?72:104;
+        for(let row=0;row<rows;row++){
+          const d=row/(rows-1);
+          if(row%5===0){context.beginPath();for(let col=0;col<=126;col++){const p=point(col/126,d,t,mobile);if(col===0)context.moveTo(...p);else context.lineTo(...p)}context.strokeStyle=`rgba(200,149,46,${(.09+.19*d).toFixed(3)})`;context.lineWidth=.65;context.stroke()}
+          for(let col=0;col<columns;col++){
+            if((col*7+row*13)%5===0)continue;
+            const u=col/(columns-1),p=point(u,d,t,mobile);
+            const sparkle=(Math.sin(col*1.7+row*.63+t*.4)+1)/2;
+            const alpha=.14+.34*d+.09*sparkle;
+            context.beginPath();context.arc(p[0],p[1],(.36+.82*d)*((col+row)%17===0?1.45:1),0,Math.PI*2);
+            context.fillStyle=`rgba(214,172,101,${alpha.toFixed(3)})`;context.fill();
+          }
+        }
+        const curve=(q)=>{const u=.38+.55*q,d=.08+.82*q;return point(u,d,t,mobile)};
+        context.beginPath();for(let k=0;k<=90;k++){const p=curve(k/90);if(k===0)context.moveTo(...p);else context.lineTo(...p)}
+        context.strokeStyle='rgba(225,179,94,.6)';context.lineWidth=1.15;context.stroke();
+        const pulse=curve((clock%18000)/18000);
+        const halo=context.createRadialGradient(pulse[0],pulse[1],1,pulse[0],pulse[1],18);
+        halo.addColorStop(0,'rgba(242,201,126,.8)');halo.addColorStop(1,'rgba(242,201,126,0)');
+        context.fillStyle=halo;context.beginPath();context.arc(pulse[0],pulse[1],18,0,Math.PI*2);context.fill();
+        context.fillStyle='#e8bf72';context.beginPath();context.arc(pulse[0],pulse[1],2.5,0,Math.PI*2);context.fill();
+      }
+      function tick(now){frameId=0;if(!visible||paused||reduced.matches||document.hidden)return;if(last)clock+=Math.min(now-last,50);last=now;pointer+=(targetPointer-pointer)*.05;draw();start()}
+      function start(){if(!frameId && !paused && visible && !reduced.matches && !document.hidden){frameId=requestAnimationFrame(tick)}}
+      button.hidden=reduced.matches;
+      button.addEventListener('click',()=>{paused=!paused;button.textContent=paused?'Play motion':'Pause motion';button.setAttribute('aria-pressed',String(paused));if(!paused)start()});
+      hero.addEventListener('pointermove',event=>{if(reduced.matches)return;const r=hero.getBoundingClientRect();targetPointer=(event.clientX-r.left)/r.width-.5});
+      hero.addEventListener('pointerleave',()=>{targetPointer=0});
+      document.addEventListener('visibilitychange',()=>{if(!document.hidden)start()});
+      reduced.addEventListener('change',()=>{button.hidden=reduced.matches;if(reduced.matches){cancelAnimationFrame(frameId);frameId=0;draw()}else start()});
+      new ResizeObserver(resize).observe(hero);resize();start();
+    })();
+  </script>
+</body>
+</html>

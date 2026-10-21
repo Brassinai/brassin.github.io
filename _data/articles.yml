@@ -8,8 +8,8 @@
   cta: "Read paper →"
 
 - href: "/rag/devocle-a-template-for-rag-devwork-integration/"
-  img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&auto=format&fit=crop&q=80"
-  alt: "Devocle - RAG for DevOps Engineers"
+  img: "/assets/images/insights/editorial/nature-forest.webp"
+  alt: "Aerial view of a misty evergreen forest"
   author: "Stephen Oni"
   category: "RAG"
   title: "Devocle - RAG-Powered Debugging for DevOps Engineers"

@@ -5,120 +5,27 @@ description: "BrassinAI products and shipped AI systems across DevOps, meeting i
 permalink: /pages/products/
 ---
 
-<section class="products-page" aria-labelledby="products-board-title">
-  <div class="products-hero">
-    <h1 id="products-board-title">Products</h1>
-    <p>
-      Our work ranges from open-source projects to consumer- and
-      business-facing products. We always aim to either provide tools or
-      systems around AI products that make it effortless for AI engineers to
-      build AI products, or to build actual AI products that drive real
-      business value.
-    </p>
+<section class="ds-page-intro ds-products-intro" aria-labelledby="products-title">
+  <div class="ds-shell">
+    <span class="ds-eyebrow">BrassinAI / products</span>
+    <div class="ds-page-intro__grid">
+      <h1 id="products-title">Ideas made<br><em>operational.</em></h1>
+      <p>From inference infrastructure to tools for knowledge and writing, our products turn research into systems people can use.</p>
+    </div>
+    <div class="ds-page-intro__foot"><span>Explore the work</span><span>{{ site.data.products | size }} products · live and in development</span></div>
   </div>
+</section>
 
-  <div class="products-showcase" aria-label="Products grid cards">
+<section class="ds-products-page" aria-label="BrassinAI products">
+  <div class="ds-shell ds-products-list">
     {% for p in site.data.products %}
-      {% assign product_link = p.link | default: "#" %}
-      {% assign product_anchor = p.title | slugify %}
-      {% assign link_is_external = false %}
-      {% if product_link contains "://" %}
-        {% assign link_is_external = true %}
+      {% if forloop.first %}
+        {% include product-story.html product=p priority=true %}
+      {% else %}
+        {% include product-story.html product=p %}
       {% endif %}
-      {% assign product_image = p.img | default: "" %}
-      {% assign image_is_external = false %}
-      {% if product_image contains "://" %}
-        {% assign image_is_external = true %}
-      {% endif %}
-      {% assign image_is_vector = false %}
-      {% if product_image contains ".svg" %}
-        {% assign image_is_vector = true %}
-      {% endif %}
-      <article class="products-pin" id="{{ product_anchor }}">
-        {% if product_link != "#" %}
-          <a
-            href="{% if link_is_external %}{{ product_link }}{% else %}{{ product_link | relative_url }}{% endif %}"
-            class="products-project-card"
-            {% if link_is_external %}target="_blank" rel="noopener"{% endif %}
-            aria-label="Open {{ p.title }}"
-          >
-        {% else %}
-          <div class="products-project-card">
-        {% endif %}
-          <div class="products-project-media">
-            <div class="products-project-media-wrap">
-              <img
-                class="products-project-img{% if image_is_vector %} products-project-img--contain{% endif %}"
-                src="{% if image_is_external %}{{ product_image }}{% else %}{{ product_image | relative_url }}{% endif %}"
-                alt="{{ p.alt | default: p.title }}"
-                {% if forloop.index0 == 0 %}
-                loading="eager"
-                fetchpriority="high"
-                {% else %}
-                loading="lazy"
-                {% endif %}
-                decoding="async"
-              />
-            </div>
-          </div>
-
-          <div class="products-project-body">
-            <h2 class="products-project-title">{{ p.title }}</h2>
-
-            {% if p.status %}
-              <div class="products-project-status" aria-label="Project status">
-                <span class="products-project-status-dot" aria-hidden="true"></span>
-                <span>{{ p.status | upcase }}</span>
-              </div>
-            {% endif %}
-
-            <p class="products-project-desc">{{ p.desc }}</p>
-          </div>
-        {% if product_link != "#" %}
-          </a>
-        {% else %}
-          </div>
-        {% endif %}
-      </article>
     {% endfor %}
   </div>
-
 </section>
 
-<section class="final-cta page-final-cta" id="products-contact">
-  <div class="wrap">
-    <div>
-      <h2>
-        <span class="final-cta-line">Transform your systems into AI</span>
-        <span class="final-cta-line">that works and drives value.</span>
-      </h2>
-      <p>
-        Let's redefine your system into what actually works and drives
-        value.
-      </p>
-      <div class="final-cta-actions">
-        <a
-          href="https://calendly.com/business-brassinai/30min"
-          target="_blank"
-          rel="noopener"
-          class="btn btn-gold">
-          Book a Meeting →
-        </a>
-        <a href="mailto:hello@brassinai.com" class="btn btn-ghost"
-          >hello@brassinai.com</a
-        >
-      </div>
-    </div>
-  </div>
-</section>
-
-<script>
-  (function() {
-    if (!window.location.hash) return;
-    var selected = document.getElementById(window.location.hash.slice(1));
-    if (!selected) return;
-    window.setTimeout(function() {
-      selected.classList.add('products-pin-selected');
-    }, 120);
-  })();
-</script>
+{% include final-cta.html id="products-contact" %}

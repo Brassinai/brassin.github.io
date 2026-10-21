@@ -7,6 +7,8 @@ author:
  - Stephen Oni
 excerpt: "A Brief introduction to Quantization and Attention workflow for Inference"
 preview_image: /assets/images/insights/quantization-attention-workflow-cover-v3.png
+insight_image: /assets/images/insights/editorial/nature-desert.webp
+insight_image_alt: Sunlit sand dunes with deep geometric shadows
 ---
 
 # Inference: Quantization and Attention workflow

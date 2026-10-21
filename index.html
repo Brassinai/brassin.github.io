@@ -341,6 +341,10 @@ image: "/images/legacy/brassin2.jpg"
         margin-top: var(--space-2);
         width: fit-content;
       }
+      .mobile-menu .btn-primary,
+      .mobile-menu .btn-primary:hover {
+        color: #0a0806;
+      }
       .mobile-menu a:hover {
         color: var(--ink);
       }
@@ -1499,17 +1503,30 @@ image: "/images/legacy/brassin2.jpg"
           display: flex;
         }
         .hero-section {
-          min-height: calc(100svh - 64px);
-          padding: var(--space-7) 0;
+          min-height: 0;
+          padding: var(--space-6) 0 var(--space-7);
         }
         .hero-inner {
           width: 100%;
-          margin-top: 0.5rem;
+          margin-top: 0;
         }
         .hero-h1 {
-          font-size: clamp(3rem, 11.5vw, 4.2rem);
+          width: 100%;
+          min-width: 0;
+          margin: 0;
+          font-size: clamp(2.25rem, 9vw, 3.5rem);
           line-height: 1;
           gap: clamp(0.06em, 0.3vw, 0.12em);
+        }
+        .hero-line,
+        .hero-line--nowrap {
+          white-space: normal;
+        }
+        .hero-sub {
+          margin-top: var(--space-6);
+        }
+        .hero-actions {
+          margin-top: var(--space-5);
         }
         .hero-wave {
           opacity: 0.78;
@@ -1580,6 +1597,8 @@ image: "/images/legacy/brassin2.jpg"
         }
       }
     </style>
+    <link rel="stylesheet" href="{{ '/assets/css/design-tokens.css?v=2' | relative_url }}" />
+    <link rel="stylesheet" href="{{ '/assets/css/design-system.css?v=5' | relative_url }}" />
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GJDB09FRY2"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -1613,11 +1632,11 @@ image: "/images/legacy/brassin2.jpg"
             target="_blank"
             rel="noopener"
             class="btn btn-primary"
-              >Get in touch</a
+              >Book a call</a
           >
         </div>
 
-        <button class="hamburger" aria-label="Toggle menu" id="hamburger">
+        <button class="hamburger" aria-label="Toggle menu" aria-controls="mobile-menu" aria-expanded="false" id="hamburger">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -1628,79 +1647,24 @@ image: "/images/legacy/brassin2.jpg"
         <a href="#manifesto">Manifesto</a>
         <a href="pages/insights/">Insights</a>
         <a href="pages/blog/">Blog</a>
-        <a href="https://calendly.com/business-brassinai/30min" target="_blank" rel="noopener" class="btn btn-primary">Get in touch</a>
+        <a href="https://calendly.com/business-brassinai/30min" target="_blank" rel="noopener" class="btn btn-primary">Book a call</a>
       </div>
     </nav>
 
     <!-- ── HERO ─────────────────────────────────────── -->
-    <section class="hero-section">
-      <div class="hero-wave" aria-hidden="true">
-        <svg viewBox="0 0 1440 520" preserveAspectRatio="none" role="presentation">
-          <defs>
-            <filter id="hero-wave-mask-blur" x="-20%" y="-30%" width="140%" height="160%">
-              <feGaussianBlur stdDeviation="44"></feGaussianBlur>
-            </filter>
-          </defs>
-          <path
-            id="hero-wave-path"
-            class="hero-wave-line"
-            d="M -40 314 C 220 246, 492 246, 738 314 S 1226 392, 1480 314">
-          </path>
-          <mask id="hero-wave-light-mask" maskUnits="userSpaceOnUse" x="-120" y="0" width="1680" height="520">
-            <rect x="-120" y="0" width="1680" height="520" fill="black"></rect>
-            <g filter="url(#hero-wave-mask-blur)">
-              <ellipse
-                cx="490"
-                cy="278"
-                rx="250"
-                ry="170"
-                fill="white"
-                opacity="0.92"
-                transform="rotate(-10 490 278)">
-              </ellipse>
-            </g>
-          </mask>
-          <g class="hero-wave-reveal-group" mask="url(#hero-wave-light-mask)">
-            <path
-              class="hero-wave-backlight hero-wave-backlight--far"
-              d="M -40 314 C 220 246, 492 246, 738 314 S 1226 392, 1480 314">
-            </path>
-            <path
-              class="hero-wave-backlight hero-wave-backlight--mid"
-              d="M -40 314 C 220 246, 492 246, 738 314 S 1226 392, 1480 314">
-            </path>
-            <path
-              class="hero-wave-backlight hero-wave-backlight--near"
-              d="M -40 314 C 220 246, 492 246, 738 314 S 1226 392, 1480 314">
-            </path>
-            <path
-              class="hero-wave-shadow"
-              d="M -40 314 C 220 246, 492 246, 738 314 S 1226 392, 1480 314">
-            </path>
-          </g>
-        </svg>
-      </div>
-      <div class="hero-inner">
-        <h1 class="hero-h1">
-          <span class="hero-line">Turning frontier AI</span>
-          <span class="hero-line hero-line--shift-sm">into</span>
-          <span class="hero-line hero-line--shift-lg hero-line--nowrap"><span class="highlight">real leverage.</span></span>
-        </h1>
-
-        <p class="hero-sub">
-          We build products, tools and systems that redefine how organizations
-          and individuals use and interact with AI.
-        </p>
-
-        <div class="hero-actions">
-          <a
-            href="https://calendly.com/business-brassinai/30min"
-            target="_blank"
-            rel="noopener"
-            class="btn btn-primary">
-            Contact us
-          </a>
-          <a href="pages/products/" class="btn btn-ghost">View products</a>
+    <section class="hero-section centered-hero" aria-labelledby="home-hero-title">
+      <div class="hero-inner centered-hero__inner">
+        <div class="centered-hero__copy">
+          <h1 class="hero-h1" id="home-hero-title">
+            <span class="hero-line">Turning frontier AI</span>
+            <span class="hero-line hero-line--shift-sm">into</span>
+            <span class="hero-line hero-line--shift-lg hero-line--nowrap"><span class="highlight">real leverage.</span></span>
+          </h1>
+          <p class="hero-sub">We build products, tools and systems that redefine how organizations and individuals use and interact with AI.</p>
+          <div class="hero-actions centered-hero__actions">
+            <a class="btn btn-primary" href="https://calendly.com/business-brassinai/30min" target="_blank" rel="noopener">Contact us</a>
+            <a class="btn btn-ghost" href="{{ '/pages/products/' | relative_url }}">View products</a>
+          </div>
         </div>
       </div>
     </section>
@@ -1795,59 +1759,19 @@ image: "/images/legacy/brassin2.jpg"
     </section>
 
     <!-- ── PRODUCTS ───────────────────────────────────── -->
-    <section class="products-section" id="products">
-      <div class="wrap">
-        <div class="reveal">
-          <h2 class="section-title products-title">Our Products</h2>
+    <section class="products-section" id="products" aria-labelledby="home-products-title">
+      <div class="ds-shell">
+        <div class="ds-section-head reveal">
+          <div><span class="ds-eyebrow">02 / selected products</span><h2 id="home-products-title">Work that leaves<br>the lab.</h2></div>
         </div>
-
-        <div class="products-grid">
-          <article class="product-card product-card--feature">
-            <img
-              class="product-img"
-              src="{{ '/assets/images/products/infercloud-workspace-real.png' | relative_url }}"
-              alt="Photoreal GPU workspace product image for InferCloud with a connection line extending out of frame" />
-            <div class="product-body">
-              <h3>InferCloud</h3>
-              <p>
-                Provides a platform for individuals and organizations to make their inference servers, running open-source models, available for others to use at a regulated cost.
-              </p>
-            </div>
-          </article>
-
-          <article class="product-card">
-            <img
-              class="product-img product-img--inferops"
-              src="{{ '/assets/images/products/inferops-terminal.svg?v=20260815b' | relative_url }}"
-              alt="Editor-like terminal screen showing InferOps commands for provisioning GPU inference infrastructure" />
-            <div class="product-body">
-              <h3>InferOps</h3>
-              <p>
-                Provision and manage your own inference servers, run open-source
-                model runtimes, and expose them securely to the internet.
-              </p>
-            </div>
-          </article>
-
-          <article class="product-card">
-            <img
-              class="product-img"
-              src="{{ '/assets/images/products/debrief-disks-robot.png?v=20260815a' | relative_url }}"
-              alt="White-background Debrief image with stacked meeting discs connected by cable to a headset robot" />
-            <div class="product-body">
-              <h3>Debrief</h3>
-              <p>
-                Meeting intelligence that turns recordings into searchable
-                knowledge, capturing decisions, commitments, and insights in a
-                form teams can reuse immediately.
-              </p>
-            </div>
-          </article>
+        <div class="ds-products-list">
+          {% for p in site.data.products %}
+            {% if p.key == 'infercloud' or p.key == 'inferops' or p.key == 'debrief' %}
+              {% include product-story.html product=p heading='h3' %}
+            {% endif %}
+          {% endfor %}
         </div>
-
-        <div class="reveal section-actions product-actions">
-          <a href="{{ '/pages/products/' | relative_url }}" class="btn btn-ghost">See all products →</a>
-        </div>
+        <a href="{{ '/pages/products/' | relative_url }}" class="ds-text-link ds-section-end-link">Explore all products <span aria-hidden="true">→</span></a>
       </div>
     </section>
 
@@ -1864,7 +1788,7 @@ image: "/images/legacy/brassin2.jpg"
             target="_blank"
             rel="noopener"
             class="btn btn-primary">
-            Get in touch →
+            Book a call →
           </a>
         </div>
       </div>
@@ -1900,15 +1824,20 @@ image: "/images/legacy/brassin2.jpg"
     <!-- ── ARTICLES ───────────────────────────────────── -->
     <section class="articles-section" id="articles">
       <div class="wrap">
-        <div class="reveal">
-          <h2 class="section-title">Our Writings</h2>
+        <div class="ds-section-head reveal">
+          <div><span class="ds-eyebrow">03 / research and writing</span><h2 class="section-title">Our Writings</h2></div>
         </div>
 
         <div class="articles-grid">
           {% for a in site.data.articles %}
-          <a class="article-card" href="{{ a.href }}" target="_blank" rel="noopener">
-            <img class="article-img" src="{{ a.img }}" alt="{{ a.alt }}" />
+          {% assign article_external = false %}
+          {% if a.href contains '://' %}{% assign article_external = true %}{% endif %}
+          {% assign image_external = false %}
+          {% if a.img contains '://' %}{% assign image_external = true %}{% endif %}
+          <a class="article-card{% if forloop.first %} article-card--featured{% endif %}" href="{% if article_external %}{{ a.href }}{% else %}{{ a.href | relative_url }}{% endif %}" {% if article_external %}target="_blank" rel="noopener"{% endif %}>
+            <div class="article-media"><img class="article-img" src="{% if image_external %}{{ a.img }}{% else %}{{ a.img | relative_url }}{% endif %}" alt="{{ a.alt | escape }}" loading="lazy" decoding="async" /></div>
             <div class="article-body">
+              <span class="article-meta">{{ a.category }} <span aria-hidden="true">/</span> {{ a.author }}</span>
               <h3>{{ a.title }}</h3>
               <p>{{ a.desc }}</p>
               <span class="article-readmore">{{ a.cta }}</span>
@@ -2054,32 +1983,7 @@ image: "/images/legacy/brassin2.jpg"
     </section>
 
     <!-- ── FINAL CTA ──────────────────────────────────── -->
-    <section class="final-cta" id="contact">
-      <div class="wrap">
-        <div class="reveal">
-          <h2>
-            <span class="final-cta-line">Transform your systems into AI</span>
-            <span class="final-cta-line">that works and drives value.</span>
-          </h2>
-          <p>
-            Let's redefine your system into what actually works and drives
-            value.
-          </p>
-          <div class="final-cta-actions">
-            <a
-              href="https://calendly.com/business-brassinai/30min"
-              target="_blank"
-              rel="noopener"
-              class="btn btn-gold">
-              Book a Meeting →
-            </a>
-            <a href="mailto:hello@brassinai.com" class="btn btn-ghost"
-              >hello@brassinai.com</a
-            >
-          </div>
-        </div>
-      </div>
-    </section>
+    {% include final-cta.html id="contact" %}
 
     <!-- ── FOOTER ─────────────────────────────────────── -->
     <footer>
@@ -2133,14 +2037,12 @@ image: "/images/legacy/brassin2.jpg"
                 href="https://calendly.com/business-brassinai/30min"
                 target="_blank"
                 rel="noopener"
-                >Get in touch</a
+                >Book a call</a
               >
             </li>
             <li>
               <a href="mailto:hello@brassinai.com">hello@brassinai.com</a>
             </li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms</a></li>
           </ul>
         </div>
       </div>
@@ -2162,10 +2064,11 @@ image: "/images/legacy/brassin2.jpg"
       const hamburger = document.getElementById("hamburger");
       const mobileMenu = document.getElementById("mobile-menu");
       hamburger.addEventListener("click", () => {
-        mobileMenu.classList.toggle("open");
+        const isOpen = mobileMenu.classList.toggle("open");
+        hamburger.setAttribute("aria-expanded", String(isOpen));
       });
       mobileMenu.querySelectorAll("a").forEach((a) => {
-        a.addEventListener("click", () => mobileMenu.classList.remove("open"));
+        a.addEventListener("click", () => { mobileMenu.classList.remove("open"); hamburger.setAttribute("aria-expanded", "false"); });
       });
 
       // Scroll reveal (IntersectionObserver)
