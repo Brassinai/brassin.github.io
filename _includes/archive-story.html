@@ -1,10 +1,11 @@
 {% assign post = include.post %}
 {% assign preview_image = include.image | default: post.preview_image | default: '/images/articles/agentL2.png' %}
+{% assign preview_image_small = include.image_small | default: post.preview_image_small %}
 {% assign preview_alt = include.image_alt %}
 {% unless preview_alt %}{% assign preview_alt = post.title | append: ' preview' %}{% endunless %}
 <article class="ds-archive-card{% if include.priority %} ds-archive-card--featured{% endif %}" data-cat="{{ post.category | downcase }}">
   <a class="ds-archive-card__media" href="{{ post.url | relative_url }}" aria-label="Read {{ post.title | escape }}">
-    <img src="{{ preview_image | relative_url }}" alt="{{ preview_alt | escape }}" loading="{% if include.priority %}eager{% else %}lazy{% endif %}" />
+    <img src="{{ preview_image | relative_url }}"{% if preview_image_small %} srcset="{{ preview_image_small | relative_url }} 800w, {{ preview_image | relative_url }} {% if include.image %}1600{% else %}1536{% endif %}w" sizes="(max-width: 899px) 100vw, (max-width: 1400px) 55vw, 720px"{% endif %} alt="{{ preview_alt | escape }}" width="{% if include.image %}1600{% else %}1536{% endif %}" height="{% if include.image %}1000{% else %}1024{% endif %}" loading="{% if include.priority %}eager{% else %}lazy{% endif %}"{% if include.priority %} fetchpriority="high"{% endif %} decoding="async" />
   </a>
   <div class="ds-archive-card__copy">
     <span class="ds-eyebrow">{{ post.category | replace: '-', ' ' }} / {{ post.date | date: "%b %d, %Y" }}</span>

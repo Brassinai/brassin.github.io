@@ -7,6 +7,7 @@ author: Emmanuel Alo
 excerpt: "From silicon to serving: GPUs, the execution model, GPU DSLs and Triton, CUDA Graphs, FlashInfer attention, and vLLM."
 preview_image: /assets/images/insights/gpu-llm-serving-primer-cover-v2.png
 insight_image: /assets/images/insights/editorial/architecture-stairwell.webp
+insight_image_small: /assets/images/insights/editorial/architecture-stairwell-sm.webp
 insight_image_alt: Sunlight tracing the angular interior of a modern stairwell
 ---
 

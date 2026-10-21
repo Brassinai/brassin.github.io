@@ -8,7 +8,8 @@ author:
  - Opeyemi Bamigbade
 
 excerpt: "In production, agents usually fail less because the model is weak and more because state, tools, observability, and governance are weak."
-preview_image: /assets/images/blog/agentic-systems-failures-cover-v4.png
+preview_image: /assets/images/blog/agentic-systems-failures-cover-v4.webp
+preview_image_small: /assets/images/blog/agentic-systems-failures-cover-v4-sm.webp
 ---
 
 When an agent fails, it is tempting to say: the model is not smart enough yet.

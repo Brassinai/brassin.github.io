@@ -40,7 +40,7 @@ permalink: /pages/insights/
 
     <div class="ds-archive-grid" aria-label="Insight cards">
       {% for post in slide_posts %}
-        {% include archive-story.html post=post image=post.insight_image image_alt=post.insight_image_alt read_label="Read the insight" priority=forloop.first %}
+        {% include archive-story.html post=post image=post.insight_image image_small=post.insight_image_small image_alt=post.insight_image_alt read_label="Read the insight" priority=forloop.first %}
       {% endfor %}
     </div>
     <p class="post-feed-empty" id="feed-empty" hidden>No insights in this category yet.</p>

@@ -9,6 +9,7 @@ author:
 excerpt: "A case study in building a fine-tuned RAG system for DevOps log debugging, from dataset curation to Docker Desktop extension."
 preview_image: /assets/images/insights/devocle-rag-devops-cover-v2.png
 insight_image: /assets/images/insights/editorial/nature-forest.webp
+insight_image_small: /assets/images/insights/editorial/nature-forest-sm.webp
 insight_image_alt: Aerial view of a misty evergreen forest
 ---
 

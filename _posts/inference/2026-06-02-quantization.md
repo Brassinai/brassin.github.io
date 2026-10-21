@@ -8,6 +8,7 @@ author:
 excerpt: "A Brief introduction to Quantization and Attention workflow for Inference"
 preview_image: /assets/images/insights/quantization-attention-workflow-cover-v3.png
 insight_image: /assets/images/insights/editorial/nature-desert.webp
+insight_image_small: /assets/images/insights/editorial/nature-desert-sm.webp
 insight_image_alt: Sunlit sand dunes with deep geometric shadows
 ---
 
@@ -16,7 +17,7 @@ insight_image_alt: Sunlit sand dunes with deep geometric shadows
 A Brief introduction to Quantization and Attention workflow for Inference
 
 ---
-![An overloaded truck representing limited transmission capacity](/assets/images/inference/overloaded-truck-bw.jpg)
+![An overloaded truck representing limited transmission capacity](/assets/images/inference/overloaded-truck-bw.webp){: loading="lazy" decoding="async" }
 
 *Photo: [strudelt](https://commons.wikimedia.org/wiki/File:Truck_in_India_-_overloaded.jpg), licensed under [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/).*
 
@@ -79,7 +80,7 @@ R(D) measures how do we represent lage Data X with a smaller representation $\ha
 
 <!-- column -->
 
-![Quantization illustrated using suitcases](/assets/images/inference/quantization-suitcase.png)
+![Quantization illustrated using suitcases](/assets/images/inference/quantization-suitcase.webp){: loading="lazy" decoding="async" }
 
 ---
 
